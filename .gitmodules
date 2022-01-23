@@ -1,0 +1,3 @@
+[submodule "external/MachO-Kit"]
+	path = external/MachO-Kit
+	url = https://github.com/CuriousTommy/MachO-Kit
