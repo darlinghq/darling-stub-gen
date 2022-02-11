@@ -38,17 +38,24 @@
         
         NSMutableString *ignoreSymbolsFile = [[NSMutableString alloc] init];
         [self logListOfStrings:libraryParser.ignoreSymbols toString:ignoreSymbolsFile];
-        [ignoreSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"ignore_symbols.txt"]
+        [ignoreSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"ignored_symbols.txt"]
                            atomically:YES
                              encoding:NSUTF8StringEncoding
                                 error:nil];
         
+        NSMutableString *unknownSymbolsFile = [[NSMutableString alloc] init];
+        [self logListOfStrings:libraryParser.unknownSymbols toString:unknownSymbolsFile];
+        [unknownSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"unknown_symbols.txt"]
+                           atomically:YES
+                             encoding:NSUTF8StringEncoding
+                                error:nil];
     }
 }
 
 -(void) logListOfStrings:(NSMutableArray<NSString*>*)listOfString toString:(NSMutableString*)mutSymbols {
     for (NSString *string in listOfString) {
         [mutSymbols appendString:string];
+        [mutSymbols appendString:@"\n"];
     }
 }
 

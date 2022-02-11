@@ -25,6 +25,7 @@
     _inputFile = [NSString stringWithUTF8String:argv[1]];
     _outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
     
+    _logSymbols = true;
     return self;
 }
 
