@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]) {
         
         MKMachOImage *machImage = [[MKMachOImage alloc] initWithName:nil flags:0 atAddress:0 inMapping:memoryMap error:&error];
         
-        DLLibraryParser *libraryParser = [[DLLibraryParser alloc] init];
+        DLLibraryParser *libraryParser = [[DLLibraryParser alloc] initWithArguments:argumentParser];
         [libraryParser parseDependentLibraryWithMachOImage:machImage];
         [libraryParser parseSymbolWithMachOImage:machImage];
         [libraryParser parseCurrentMachOImage:machImage];
