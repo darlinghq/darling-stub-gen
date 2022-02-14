@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) DLMainImage* mainImage;
 
 @property(readonly) NSMutableSet<NSString*> *classnameObjC;
+@property(readonly) NSMutableSet<NSString*> *protocolObjC;
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCMethod*>*> *methodsObjC;
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCIVar*>*> *variableObjC;
 

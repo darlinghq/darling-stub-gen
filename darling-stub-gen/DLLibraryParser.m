@@ -48,7 +48,10 @@ const NSString *OBJC_PROTOCOL_METHOD_TYPES = @"__OBJC_$_PROTOCOL_METHOD_TYPES_";
 const NSString *OBJC_PROTOCOL_REFERENCE = @"__OBJC_PROTOCOL_REFERENCE_$_";
 const NSString *OBJC_PROTOCOL_REFS = @"__OBJC_$_PROTOCOL_REFS_";
 
+const NSSet<NSString*> *backlistedObjC = nil;
+
 bool isValidCMethod(NSString *symbol);
+void createBlacklistedSymbols(void);
 
 @implementation DLLibraryParser
 
@@ -57,6 +60,7 @@ bool isValidCMethod(NSString *symbol);
     dependiciesList = [[NSMutableArray alloc] init];
     
     _classnameObjC = [[NSMutableSet alloc] init];
+    _protocolObjC = [[NSMutableSet alloc] init];
     _methodsObjC = [[NSMutableDictionary alloc] init];
     _variableObjC = [[NSMutableDictionary alloc] init];
     
@@ -64,6 +68,9 @@ bool isValidCMethod(NSString *symbol);
     
     _ignoreSymbols = [[NSMutableArray alloc] init];
     _unknownSymbols = [[NSMutableArray alloc] init];
+    
+    createBlacklistedSymbols();
+    
     return self;
 }
 
@@ -111,16 +118,28 @@ bool isValidCMethod(NSString *symbol);
                 
                 } else if ([name hasPrefix:(NSString*)OBJC_CLASS]) {
                     [_classnameObjC addObject: [name substringFromIndex:[OBJC_CLASS length]]];
+                
+                } else if ([name hasPrefix:(NSString*)OBJC_CLASS_RO]) {
+                    [_classnameObjC addObject: [name substringFromIndex:[OBJC_CLASS_RO length]]];
+                
+                } else if ([name hasPrefix:(NSString*)OBJC_PROTOCOL]) {
+                    NSString *symbol = [name substringFromIndex:[OBJC_PROTOCOL length]];
+                    if ([backlistedObjC containsObject:symbol]) {
+                        [_ignoreSymbols addObject:name];
+                        continue;
+                    }
                     
+                    [_protocolObjC addObject: symbol];
+                
                 } else if ([name hasPrefix:(NSString*)OBJC_PROP_LIST] || [name hasPrefix:(NSString*)OBJC_INSTANCE_VARIABLES]
                            || [name hasPrefix:(NSString*)OBJC_INSTANCE_METHODS] || [name hasPrefix:(NSString*)OBJC_CLASS_METHODS]
                            || [name hasPrefix:(NSString*)OBJC_METACLASS] || [name hasPrefix:(NSString*)OBJC_PROTOCOL_INSTANCE_METHODS]
                            || [name hasPrefix:(NSString*)OBJC_PROTOCOL_INSTANCE_METHODS_OPT] || [name hasPrefix:(NSString*)OBJC_PROTOCOL_METHOD_TYPES]
                            || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFS] || [name hasPrefix:(NSString*)OBJC_CLASS_PROTOCOLS]
-                           || [name hasPrefix:(NSString*)OBJC_CLASS_RO] || [name hasPrefix:(NSString*)OBJC_LABEL_PROTOCOL]
+                           || [name hasPrefix:(NSString*)OBJC_LABEL_PROTOCOL]
                            || [name hasPrefix:(NSString*)OBJC_CATEGORY] || [name hasPrefix:(NSString*)OBJC_CLASS_PROP_LIST]
                            || [name hasPrefix:(NSString*)OBJC_PROTOCOL_CLASS_METHODS] || [name hasPrefix:(NSString*)OBJC_METACLASS_RO]
-                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL] || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFERENCE]) {
+                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFERENCE]) {
                     [_ignoreSymbols addObject:name];
                     
                 // For debugging purposes, lets keeps the remaining symbols that are not gathered in the other if conditions
@@ -184,4 +203,16 @@ bool isValidCMethod(NSString *symbol) {
     }
     
     return true;
+}
+
+void createBlacklistedSymbols() {
+    if (backlistedObjC == nil) {
+        backlistedObjC = [NSSet setWithObjects:
+            @"NSCoding",
+            @"NSCopying",
+            @"NSMutableCopying",
+            @"NSObject",
+            @"NSSecureCoding",
+            nil];
+    }
 }
