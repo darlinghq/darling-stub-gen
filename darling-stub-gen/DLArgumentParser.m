@@ -26,6 +26,7 @@
     _outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
     
     _logSymbols = true;
+    _useMethodSignature = true;
     return self;
 }
 
