@@ -19,7 +19,7 @@
 
 #import "DLStubBuilder.h"
 
-const NSString *defaultCopyRight = @"/*\
+const NSString *defaultCopyRight = @"/*\n\
  This file is part of Darling.\n\
 \n\
  Copyright (C) %@ Darling Team\n\
@@ -50,7 +50,7 @@ const NSString *defaultObjCMethodStub = @"\
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector\n\
 {\n\
     return [NSMethodSignature signatureWithObjCTypes: \"v@:\"];\n\
-}\n\
+}\n\n\
 - (void)forwardInvocation:(NSInvocation *)anInvocation\n\
 {\n\
     NSLog(@\"Stub called: %@ in %@\", NSStringFromSelector([anInvocation selector]), [self class]);\n\
@@ -59,6 +59,7 @@ const NSString *defaultObjCMethodStub = @"\
 ";
 
 const NSString *OBJ_C_IMPLEMENTATION = @"@implementation %@\n";
+const NSString *OBJ_C_PROTOCAL = @"@protocol %@";
 const NSString *OBJ_C_INTERFACE = @"@interface %@ : NSObject";
 const NSString *OBJ_C_END = @"@end\n";
 
@@ -93,6 +94,7 @@ const NSString *OBJ_C_END = @"@end\n";
     [mutableString appendString:@"\n\n"];
 }
 
+
 -(void) generateFilesToOutputFolder:(NSURL*)outputFolder usingStubParser:(DLLibraryParser *)libraryParser {
     NSString *libraryName = libraryParser.mainImage.imageName;
     [self setUpPathsIn:outputFolder forLibrary:libraryName];
@@ -108,13 +110,18 @@ const NSString *OBJ_C_END = @"@end\n";
         NSMutableString *sourceFile = [[NSMutableString alloc] initWithString:@""];
         NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
         
-        [self appendCopyRightHeaderTo:sourceFile];
-        
         [mainHeaderIncludes addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, classname]];
         [self generateHeaderFor:classname
                    usingMethods:listOfMethods
-                   andVariables:listOfVariables
+                      variables:listOfVariables
+                    andObjCType:(NSString*)OBJ_C_INTERFACE
              withResultsSavedTo:includeFile];
+        [self generateSourceFor:classname
+                      toLibrary:libraryName
+                   usingMethods:listOfMethods
+                      variables:listOfVariables
+                    andObjCType:(NSString*)OBJ_C_IMPLEMENTATION
+             withResultsSavedTo:sourceFile];
         
         [listOfSourceFiles addObject: [NSString stringWithFormat:@"src/%@.m", classname]];
         
@@ -122,12 +129,28 @@ const NSString *OBJ_C_END = @"@end\n";
         [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
     
+    for (NSString *protocol in libraryParser.protocolObjC) {
+        NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", protocol]];
+        NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
+        
+        [mainHeaderIncludes addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, protocol]];
+        
+        [self generateHeaderFor:protocol
+                   usingMethods:nil
+                      variables:nil
+                    andObjCType:(NSString*)OBJ_C_PROTOCAL
+             withResultsSavedTo:includeFile];
+        
+        [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
+    
     [self generateCMakeListsFrom:libraryParser usingSources:listOfSourceFiles];
     [self generateMainHeaderFrom:libraryParser usingIncludes:mainHeaderIncludes];
 }
 
+
 -(void) generateCMakeListsFrom:(DLLibraryParser*)libraryParser
-                 usingSources:(NSMutableArray<NSString*>*)listOfSourceFiles {
+                  usingSources:(NSMutableArray<NSString*>*)listOfSourceFiles {
     NSURL *cMakeListsPath = [_rootFolder URLByAppendingPathComponent: @"CMakeLists.txt"];
     NSMutableString *cMakeLists = [[NSMutableString alloc] init];
     NSString *libraryName = libraryParser.mainImage.imageName;
@@ -189,8 +212,9 @@ const NSString *OBJ_C_END = @"@end\n";
     [cMakeLists writeToURL:cMakeListsPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+
 -(void) generateMainHeaderFrom:(DLLibraryParser*)libraryParser
-                usingIncludes:(NSMutableArray<NSString*>*)mainHeaderIncludes {
+                 usingIncludes:(NSMutableArray<NSString*>*)mainHeaderIncludes {
     NSString *libraryName = libraryParser.mainImage.imageName;
     NSString *upperLibraryName = libraryName.uppercaseString;
     
@@ -209,34 +233,75 @@ const NSString *OBJ_C_END = @"@end\n";
     [mainInclude writeToURL:mainIncludePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+
 -(void) generateHeaderFor:(NSString*)classname
              usingMethods:(NSMutableArray<DLObjectiveCMethod*>*)listOfMethods
-             andVariables:(NSMutableArray<DLObjectiveCIVar*>*)listOfVariables
+                variables:(NSMutableArray<DLObjectiveCIVar*>*)listOfVariables
+              andObjCType:(NSString*)objCType
        withResultsSavedTo:(NSMutableString*)mutableHeaderString {
     [self appendCopyRightHeaderTo:mutableHeaderString];
     
     [mutableHeaderString appendString:@"#include <Foundation/Foundation.h>\n"];
     [mutableHeaderString appendString:@"\n"];
     
-    [mutableHeaderString appendFormat:(NSString*)OBJ_C_INTERFACE, classname];
-    if (listOfMethods.count > 0) {
-        [mutableHeaderString appendString:@" {\n"];
-        for (DLObjectiveCIVar *objCVar in listOfVariables) {
-            [mutableHeaderString appendFormat:@"\t%@;\n", [objCVar generateStubVariable]];
+    [mutableHeaderString appendFormat:objCType, classname];
+    
+    if ([OBJ_C_INTERFACE isEqualToString:objCType]) {
+        if (!_arguments.useMethodSignature) {
+            if (listOfMethods.count > 0) {
+                [mutableHeaderString appendString:@" {\n"];
+                for (DLObjectiveCIVar *objCVar in listOfVariables) {
+                    [mutableHeaderString appendFormat:@"\t%@;\n", [objCVar generateStubVariable]];
+                }
+                [mutableHeaderString appendString:@"}\n"];
+            } else {
+                [mutableHeaderString appendString:@"\n"];
+            }
+            [mutableHeaderString appendString:@"\n"];
+            
+            for (DLObjectiveCMethod *objCMethod in listOfMethods) {
+                [mutableHeaderString appendString:[objCMethod generateStubMethod]];
+                [mutableHeaderString appendString:@";\n"];
+            }
+        } else {
+            [mutableHeaderString appendString:@"\n"];
         }
-        [mutableHeaderString appendString:@"}\n"];
-    } else {
+    
+    } else if ([OBJ_C_PROTOCAL isEqualToString:objCType]) {
         [mutableHeaderString appendString:@"\n"];
     }
+    
+    [mutableHeaderString appendString:@"\n"];
+    [mutableHeaderString appendString:(NSString*)OBJ_C_END];
+}
+
+
+-(void) generateSourceFor:(NSString*)classname
+                toLibrary:(NSString*)libraryName
+             usingMethods:(NSMutableArray<DLObjectiveCMethod*>*)listOfMethods
+                variables:(NSMutableArray<DLObjectiveCIVar*>*)listOfVariables
+              andObjCType:(NSString*)objCType
+       withResultsSavedTo:(NSMutableString*)mutableHeaderString
+{
+    [self appendCopyRightHeaderTo:mutableHeaderString];
+    
+//    [mutableHeaderString appendString:@"#include <Foundation/Foundation.h>\n"];
+    [mutableHeaderString appendFormat:@"#import <%@/%@.h>\n", libraryName, classname];
     [mutableHeaderString appendString:@"\n"];
     
+    [mutableHeaderString appendFormat:objCType, classname];
+    [mutableHeaderString appendString:@"\n"];
     
-    for (DLObjectiveCMethod *objCMethod in listOfMethods) {
-        [mutableHeaderString appendString:[objCMethod generateStubMethod]];
-        [mutableHeaderString appendString:@";\n"];
+    if ([OBJ_C_IMPLEMENTATION isEqualToString:objCType]) {
+        if (_arguments.useMethodSignature) {
+            [mutableHeaderString appendString:(NSString*)defaultObjCMethodStub];
+        } else if (listOfMethods.count > 0) {
+            for (DLObjectiveCMethod *objCMethod in listOfMethods) {
+                [mutableHeaderString appendFormat:@"%@ {\n\t%@\n}\n\n", [objCMethod generateStubMethod], @"NSLog(@\"%@\", NSStringFromSelector(_cmd));"];
+            }
+        }
     }
     
-    [mutableHeaderString appendString:@"\n"];
     [mutableHeaderString appendString:(NSString*)OBJ_C_END];
 }
 
