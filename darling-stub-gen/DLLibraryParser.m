@@ -66,8 +66,10 @@ void createBlacklistedSymbols(void);
     
     functionsC = [[NSMutableArray alloc] init];
     
-    _ignoreSymbols = [[NSMutableArray alloc] init];
-    _unknownSymbols = [[NSMutableArray alloc] init];
+    _localIgnoreSymbols = [[NSMutableArray alloc] init];
+    _localUnknownSymbols = [[NSMutableArray alloc] init];
+    _externalSymbols = [[NSMutableArray alloc] init];
+    _undefinedSymbols = [[NSMutableArray alloc] init];
     
     createBlacklistedSymbols();
     
@@ -106,7 +108,7 @@ void createBlacklistedSymbols(void);
     
     if (symbolTable != nil) {
         NSRange localRange = symbolTable.localSymbols;
-        for (NSUInteger i = 0; i < localRange.length; i++) {
+        for (NSUInteger i = localRange.location; i < localRange.length; i++) {
             MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
             NSString *name = symbol.name.value.string;
                         
@@ -125,7 +127,7 @@ void createBlacklistedSymbols(void);
                 } else if ([name hasPrefix:(NSString*)OBJC_PROTOCOL]) {
                     NSString *symbol = [name substringFromIndex:[OBJC_PROTOCOL length]];
                     if ([backlistedObjC containsObject:symbol]) {
-                        [_ignoreSymbols addObject:name];
+                        [_localIgnoreSymbols addObject:name];
                         continue;
                     }
                     
@@ -140,12 +142,12 @@ void createBlacklistedSymbols(void);
                            || [name hasPrefix:(NSString*)OBJC_CATEGORY] || [name hasPrefix:(NSString*)OBJC_CLASS_PROP_LIST]
                            || [name hasPrefix:(NSString*)OBJC_PROTOCOL_CLASS_METHODS] || [name hasPrefix:(NSString*)OBJC_METACLASS_RO]
                            || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFERENCE]) {
-                    [_ignoreSymbols addObject:name];
+                    [_localIgnoreSymbols addObject:name];
                     
                 // For debugging purposes, lets keeps the remaining symbols that are not gathered in the other if conditions
                 // in unknownSymbols.
                 } else {
-                    [_unknownSymbols addObject:name];
+                    [_localUnknownSymbols addObject:name];
                 }
             
             // If Objective C class/instance method
@@ -159,21 +161,39 @@ void createBlacklistedSymbols(void);
                        || [name containsString:@"___Block_byref_object_dispose_"] || [name containsString:@"___Block_byref_object_copy_"]
                        || [name containsString:@"GCC_except_table"] || [name containsString:@"___copy_helper_block"]
                        || [name containsString:@"___destroy_helper_block"]) {
-                [_ignoreSymbols addObject:name];
+                [_localIgnoreSymbols addObject:name];
             
             } else if (isValidCMethod(name)) {
                 [functionsC addObject:name];
             
             // If we are not sure what the symbol is suppose to be, we will store them in the unknownSymbols
             } else {
-                [_unknownSymbols addObject:name];
+                [_localUnknownSymbols addObject:name];
             }
+        }
+        
+        NSRange externalSymbols = symbolTable.externalSymbols;
+        for (NSUInteger i = externalSymbols.location; i < externalSymbols.length; i++) {
+            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
+            NSString *name = symbol.name.value.string;
+            
+            [_externalSymbols addObject:name];
+        }
+        
+        NSRange undefinedSymbols = symbolTable.undefinedSymbols;
+        for (NSUInteger i = undefinedSymbols.location; i < undefinedSymbols.length; i++) {
+            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
+            NSString *name = symbol.name.value.string;
+            
+            [_undefinedSymbols addObject:name];
         }
     }
     
     [functionsC sortUsingSelector:@selector(compare:)];
-    [_ignoreSymbols sortUsingSelector:@selector(compare:)];
-    [_unknownSymbols sortUsingSelector:@selector(compare:)];
+    [_localIgnoreSymbols sortUsingSelector:@selector(compare:)];
+    [_localUnknownSymbols sortUsingSelector:@selector(compare:)];
+    [_externalSymbols sortUsingSelector:@selector(compare:)];
+    [_undefinedSymbols sortUsingSelector:@selector(compare:)];
     
     for (NSString *key in _methodsObjC) {
         [_methodsObjC[key] sortUsingSelector:@selector(compare:)];

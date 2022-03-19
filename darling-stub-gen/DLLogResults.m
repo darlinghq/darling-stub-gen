@@ -36,16 +36,30 @@
                                       attributes:nil
                                            error:nil];
         
-        NSMutableString *ignoreSymbolsFile = [[NSMutableString alloc] init];
-        [self logListOfStrings:libraryParser.ignoreSymbols toString:ignoreSymbolsFile];
-        [ignoreSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"ignored_symbols.txt"]
+        NSMutableString *localIgnoreSymbolsFile = [[NSMutableString alloc] init];
+        [self logListOfStrings:libraryParser.localIgnoreSymbols toString:localIgnoreSymbolsFile];
+        [localIgnoreSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"local_ignored_symbols.txt"]
                            atomically:YES
                              encoding:NSUTF8StringEncoding
                                 error:nil];
         
-        NSMutableString *unknownSymbolsFile = [[NSMutableString alloc] init];
-        [self logListOfStrings:libraryParser.unknownSymbols toString:unknownSymbolsFile];
-        [unknownSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"unknown_symbols.txt"]
+        NSMutableString *localUnknownSymbolsFile = [[NSMutableString alloc] init];
+        [self logListOfStrings:libraryParser.localUnknownSymbols toString:localUnknownSymbolsFile];
+        [localUnknownSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"local_unknown_symbols.txt"]
+                           atomically:YES
+                             encoding:NSUTF8StringEncoding
+                                error:nil];
+        
+        NSMutableString *externalSymbolsFile = [[NSMutableString alloc] init];
+        [self logListOfStrings:libraryParser.externalSymbols toString:externalSymbolsFile];
+        [externalSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"external_symbols.txt"]
+                           atomically:YES
+                             encoding:NSUTF8StringEncoding
+                                error:nil];
+        
+        NSMutableString *undefinedSymbolsFile = [[NSMutableString alloc] init];
+        [self logListOfStrings:libraryParser.undefinedSymbols toString:undefinedSymbolsFile];
+        [undefinedSymbolsFile writeToURL:[logPath URLByAppendingPathComponent:@"undefinied_symbols.txt"]
                            atomically:YES
                              encoding:NSUTF8StringEncoding
                                 error:nil];

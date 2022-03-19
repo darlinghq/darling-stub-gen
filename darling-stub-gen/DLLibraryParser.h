@@ -42,8 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCMethod*>*> *methodsObjC;
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCIVar*>*> *variableObjC;
 
-@property(readonly) NSMutableArray<NSString*> *unknownSymbols;
-@property(readonly) NSMutableArray<NSString*> *ignoreSymbols;
+@property(readonly) NSMutableArray<NSString*> *localUnknownSymbols;
+@property(readonly) NSMutableArray<NSString*> *localIgnoreSymbols;
+@property(readonly) NSMutableArray<NSString*> *externalSymbols;
+@property(readonly) NSMutableArray<NSString*> *undefinedSymbols;
 
 -(instancetype)initWithArguments:(DLArgumentParser*)arugmentParser;
 -(void)parseCurrentMachOImage:(MKMachOImage*)image;
