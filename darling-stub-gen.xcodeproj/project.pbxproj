@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E9372EAF27B0A6FF00C5298C /* MachOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); };
+		E9372EB027B0A6FF00C5298C /* MachOKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E9679B862772DBBA00215D6C /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
+		E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
+		E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
+		E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
+		E9B947C7276E6757000D52A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
+		E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
+		E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
+		E9B9486C277193E2000D52A2 /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9372E9C27B0A56B00C5298C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D02FEB361890FF88004E88ED;
+			remoteInfo = MachOKit;
+		};
+		E9372E9E27B0A56B00C5298C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D02FEB4D1890FF88004E88ED;
+			remoteInfo = MachOKitTests;
+		};
+		E9372EA027B0A56B00C5298C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0A3BB741A68EB9D00D663A0;
+			remoteInfo = libMachO;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E9372EB127B0A6FF00C5298C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E9372EB027B0A6FF00C5298C /* MachOKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9B947C1276E6757000D52A2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MachOKit.xcodeproj; path = "external/MachO-Kit/MachOKit.xcodeproj"; sourceTree = "<group>"; };
+		E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjectiveCIVar.h; sourceTree = "<group>"; };
+		E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjectiveCIVar.m; sourceTree = "<group>"; };
+		E9679BA927751A5900215D6C /* DLArgumentParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLArgumentParser.h; sourceTree = "<group>"; };
+		E9679BAA27751A5900215D6C /* DLArgumentParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLArgumentParser.m; sourceTree = "<group>"; };
+		E9679BAC277670DC00215D6C /* DLLogResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLLogResults.h; sourceTree = "<group>"; };
+		E9679BAD277670DC00215D6C /* DLLogResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLogResults.m; sourceTree = "<group>"; };
+		E9679BAF2776D51D00215D6C /* DLMainImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLMainImage.h; sourceTree = "<group>"; };
+		E9679BB02776D51D00215D6C /* DLMainImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLMainImage.m; sourceTree = "<group>"; };
+		E9B947C3276E6757000D52A2 /* darling-stub-gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "darling-stub-gen"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9B947C6276E6757000D52A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E9B947DF276E6AAB000D52A2 /* darling-stub-gen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "darling-stub-gen.xcodeproj"; sourceTree = "<group>"; };
+		E9B94840276EF75C000D52A2 /* DLLibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLLibraryParser.h; sourceTree = "<group>"; };
+		E9B94841276EF75C000D52A2 /* DLLibraryParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLibraryParser.m; sourceTree = "<group>"; };
+		E9B9484627702948000D52A2 /* DLStubBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLStubBuilder.h; sourceTree = "<group>"; };
+		E9B9484727702948000D52A2 /* DLStubBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLStubBuilder.m; sourceTree = "<group>"; };
+		E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjectiveCMethod.h; sourceTree = "<group>"; };
+		E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjectiveCMethod.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9B947C0276E6757000D52A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9372EAF27B0A6FF00C5298C /* MachOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9372E9527B0A56B00C5298C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9372E9D27B0A56B00C5298C /* MachOKit.framework */,
+				E9372E9F27B0A56B00C5298C /* MachOKitTests.xctest */,
+				E9372EA127B0A56B00C5298C /* libMachO.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9B947BA276E6757000D52A2 = {
+			isa = PBXGroup;
+			children = (
+				E9B947C5276E6757000D52A2 /* darling-stub-gen */,
+				E9B947C4276E6757000D52A2 /* Products */,
+				E9B947DB276E6A60000D52A2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E9B947C4276E6757000D52A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9B947C3276E6757000D52A2 /* darling-stub-gen */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9B947C5276E6757000D52A2 /* darling-stub-gen */ = {
+			isa = PBXGroup;
+			children = (
+				E9B947C6276E6757000D52A2 /* main.m */,
+				E9679BA927751A5900215D6C /* DLArgumentParser.h */,
+				E9679BAA27751A5900215D6C /* DLArgumentParser.m */,
+				E9B94840276EF75C000D52A2 /* DLLibraryParser.h */,
+				E9B94841276EF75C000D52A2 /* DLLibraryParser.m */,
+				E9679BAC277670DC00215D6C /* DLLogResults.h */,
+				E9679BAD277670DC00215D6C /* DLLogResults.m */,
+				E9B9484627702948000D52A2 /* DLStubBuilder.h */,
+				E9B9484727702948000D52A2 /* DLStubBuilder.m */,
+				E9B948692771938F000D52A2 /* symbols */,
+			);
+			path = "darling-stub-gen";
+			sourceTree = "<group>";
+		};
+		E9B947DB276E6A60000D52A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9B947DF276E6AAB000D52A2 /* darling-stub-gen.xcodeproj */,
+				E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9B947E0276E6AAB000D52A2 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9B948692771938F000D52A2 /* symbols */ = {
+			isa = PBXGroup;
+			children = (
+				E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */,
+				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
+				E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */,
+				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
+				E9679BAF2776D51D00215D6C /* DLMainImage.h */,
+				E9679BB02776D51D00215D6C /* DLMainImage.m */,
+			);
+			path = symbols;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9B947C2276E6757000D52A2 /* darling-stub-gen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9B947CA276E6757000D52A2 /* Build configuration list for PBXNativeTarget "darling-stub-gen" */;
+			buildPhases = (
+				E9B947BF276E6757000D52A2 /* Sources */,
+				E9B947C0276E6757000D52A2 /* Frameworks */,
+				E9B947C1276E6757000D52A2 /* CopyFiles */,
+				E9372EB127B0A6FF00C5298C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "darling-stub-gen";
+			productName = "darling-stub-gen";
+			productReference = E9B947C3276E6757000D52A2 /* darling-stub-gen */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9B947BB276E6757000D52A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					E9B947C2276E6757000D52A2 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = E9B947BE276E6757000D52A2 /* Build configuration list for PBXProject "darling-stub-gen" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E9B947BA276E6757000D52A2;
+			productRefGroup = E9B947C4276E6757000D52A2 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E9B947E0276E6AAB000D52A2 /* Products */;
+					ProjectRef = E9B947DF276E6AAB000D52A2 /* darling-stub-gen.xcodeproj */;
+				},
+				{
+					ProductGroup = E9372E9527B0A56B00C5298C /* Products */;
+					ProjectRef = E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E9B947C2276E6757000D52A2 /* darling-stub-gen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E9372E9D27B0A56B00C5298C /* MachOKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MachOKit.framework;
+			remoteRef = E9372E9C27B0A56B00C5298C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E9372E9F27B0A56B00C5298C /* MachOKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MachOKitTests.xctest;
+			remoteRef = E9372E9E27B0A56B00C5298C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E9372EA127B0A56B00C5298C /* libMachO.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMachO.a;
+			remoteRef = E9372EA027B0A56B00C5298C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9B947BF276E6757000D52A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */,
+				E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */,
+				E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */,
+				E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */,
+				E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */,
+				E9B9486C277193E2000D52A2 /* DLObjectiveCMethod.m in Sources */,
+				E9679B862772DBBA00215D6C /* DLObjectiveCIVar.m in Sources */,
+				E9B947C7276E6757000D52A2 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E9B947C8276E6757000D52A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E9B947C9276E6757000D52A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E9B947CB276E6757000D52A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E9B947CC276E6757000D52A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9B947BE276E6757000D52A2 /* Build configuration list for PBXProject "darling-stub-gen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9B947C8276E6757000D52A2 /* Debug */,
+				E9B947C9276E6757000D52A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9B947CA276E6757000D52A2 /* Build configuration list for PBXNativeTarget "darling-stub-gen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9B947CB276E6757000D52A2 /* Debug */,
+				E9B947CC276E6757000D52A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9B947BB276E6757000D52A2 /* Project object */;
+}
