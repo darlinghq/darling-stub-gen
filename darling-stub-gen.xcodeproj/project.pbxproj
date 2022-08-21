@@ -99,6 +99,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9237FCD28B1CE4A007F9CEB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E9237FD128B1CE7E007F9CEB /* symbols */,
+				E9B947C6276E6757000D52A2 /* main.m */,
+				E9679BAA27751A5900215D6C /* DLArgumentParser.m */,
+				E9B94841276EF75C000D52A2 /* DLLibraryParser.m */,
+				E9679BAD277670DC00215D6C /* DLLogResults.m */,
+				E9B9484727702948000D52A2 /* DLStubBuilder.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		E9237FD128B1CE7E007F9CEB /* symbols */ = {
+			isa = PBXGroup;
+			children = (
+				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
+				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
+				E9679BB02776D51D00215D6C /* DLMainImage.m */,
+			);
+			path = symbols;
+			sourceTree = "<group>";
+		};
 		E9372E9527B0A56B00C5298C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +135,8 @@
 		E9B947BA276E6757000D52A2 = {
 			isa = PBXGroup;
 			children = (
-				E9B947C5276E6757000D52A2 /* darling-stub-gen */,
+				E9237FCD28B1CE4A007F9CEB /* src */,
+				E9B947C5276E6757000D52A2 /* include */,
 				E9B947C4276E6757000D52A2 /* Products */,
 				E9B947DB276E6A60000D52A2 /* Frameworks */,
 			);
@@ -126,21 +150,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E9B947C5276E6757000D52A2 /* darling-stub-gen */ = {
+		E9B947C5276E6757000D52A2 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				E9B947C6276E6757000D52A2 /* main.m */,
 				E9679BA927751A5900215D6C /* DLArgumentParser.h */,
-				E9679BAA27751A5900215D6C /* DLArgumentParser.m */,
 				E9B94840276EF75C000D52A2 /* DLLibraryParser.h */,
-				E9B94841276EF75C000D52A2 /* DLLibraryParser.m */,
 				E9679BAC277670DC00215D6C /* DLLogResults.h */,
-				E9679BAD277670DC00215D6C /* DLLogResults.m */,
 				E9B9484627702948000D52A2 /* DLStubBuilder.h */,
-				E9B9484727702948000D52A2 /* DLStubBuilder.m */,
 				E9B948692771938F000D52A2 /* symbols */,
 			);
-			path = "darling-stub-gen";
+			path = include;
 			sourceTree = "<group>";
 		};
 		E9B947DB276E6A60000D52A2 /* Frameworks */ = {
@@ -161,11 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */,
-				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
 				E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */,
-				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
 				E9679BAF2776D51D00215D6C /* DLMainImage.h */,
-				E9679BB02776D51D00215D6C /* DLMainImage.m */,
 			);
 			path = symbols;
 			sourceTree = "<group>";
@@ -392,6 +408,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -401,6 +418,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
