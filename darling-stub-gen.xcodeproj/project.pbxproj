@@ -13,10 +13,23 @@
 		E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
 		E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
 		E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
+		E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */; };
+		E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
+		E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
+		E976C61328E1204500C972AF /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
+		E976C61428E1204500C972AF /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
+		E976C61528E1204500C972AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
+		E976C61628E1204500C972AF /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
+		E976C61728E1204500C972AF /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
+		E976C61828E1204500C972AF /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
+		E976C61928E1204500C972AF /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
+		E976C61A28E1204500C972AF /* DLError.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F81AD228C8F5CF00B07345 /* DLError.m */; };
 		E9B947C7276E6757000D52A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
 		E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
 		E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
 		E9B9486C277193E2000D52A2 /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
+		E9C6F85428DCA20F00F1ED94 /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
+		E9F81AD328C8F5CF00B07345 /* DLError.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F81AD228C8F5CF00B07345 /* DLError.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +89,8 @@
 		E9679BAD277670DC00215D6C /* DLLogResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLogResults.m; sourceTree = "<group>"; };
 		E9679BAF2776D51D00215D6C /* DLMainImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLMainImage.h; sourceTree = "<group>"; };
 		E9679BB02776D51D00215D6C /* DLMainImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLMainImage.m; sourceTree = "<group>"; };
+		E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftSymbolTest.m; sourceTree = "<group>"; };
+		E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "darling-stub-gen-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B947C3276E6757000D52A2 /* darling-stub-gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "darling-stub-gen"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B947C6276E6757000D52A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E9B947DF276E6AAB000D52A2 /* darling-stub-gen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "darling-stub-gen.xcodeproj"; sourceTree = "<group>"; };
@@ -85,9 +100,20 @@
 		E9B9484727702948000D52A2 /* DLStubBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLStubBuilder.m; sourceTree = "<group>"; };
 		E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjectiveCMethod.h; sourceTree = "<group>"; };
 		E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjectiveCMethod.m; sourceTree = "<group>"; };
+		E9C6F85228DCA20F00F1ED94 /* DLSwiftSymbols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLSwiftSymbols.h; sourceTree = "<group>"; };
+		E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLSwiftSymbols.m; sourceTree = "<group>"; };
+		E9F81AD228C8F5CF00B07345 /* DLError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLError.m; sourceTree = "<group>"; };
+		E9F81AD428C8F60A00B07345 /* DLError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLError.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E976C60628E11CAC00C972AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9B947C0276E6757000D52A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +134,7 @@
 				E9B94841276EF75C000D52A2 /* DLLibraryParser.m */,
 				E9679BAD277670DC00215D6C /* DLLogResults.m */,
 				E9B9484727702948000D52A2 /* DLStubBuilder.m */,
+				E9F81AD228C8F5CF00B07345 /* DLError.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -115,6 +142,7 @@
 		E9237FD128B1CE7E007F9CEB /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9C6F85128DCA17D00F1ED94 /* swift */,
 				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
 				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
 				E9679BB02776D51D00215D6C /* DLMainImage.m */,
@@ -132,9 +160,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E976C60A28E11CAC00C972AF /* test */ = {
+			isa = PBXGroup;
+			children = (
+				E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		E9B947BA276E6757000D52A2 = {
 			isa = PBXGroup;
 			children = (
+				E976C60A28E11CAC00C972AF /* test */,
 				E9237FCD28B1CE4A007F9CEB /* src */,
 				E9B947C5276E6757000D52A2 /* include */,
 				E9B947C4276E6757000D52A2 /* Products */,
@@ -146,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B947C3276E6757000D52A2 /* darling-stub-gen */,
+				E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +195,7 @@
 				E9B94840276EF75C000D52A2 /* DLLibraryParser.h */,
 				E9679BAC277670DC00215D6C /* DLLogResults.h */,
 				E9B9484627702948000D52A2 /* DLStubBuilder.h */,
+				E9F81AD428C8F60A00B07345 /* DLError.h */,
 				E9B948692771938F000D52A2 /* symbols */,
 			);
 			path = include;
@@ -179,6 +218,7 @@
 		E9B948692771938F000D52A2 /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9C6F84D28DCA17100F1ED94 /* swift */,
 				E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */,
 				E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */,
 				E9679BAF2776D51D00215D6C /* DLMainImage.h */,
@@ -186,9 +226,42 @@
 			path = symbols;
 			sourceTree = "<group>";
 		};
+		E9C6F84D28DCA17100F1ED94 /* swift */ = {
+			isa = PBXGroup;
+			children = (
+				E9C6F85228DCA20F00F1ED94 /* DLSwiftSymbols.h */,
+			);
+			path = swift;
+			sourceTree = "<group>";
+		};
+		E9C6F85128DCA17D00F1ED94 /* swift */ = {
+			isa = PBXGroup;
+			children = (
+				E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */,
+			);
+			path = swift;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E976C60828E11CAC00C972AF /* darling-stub-gen-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E976C60D28E11CAC00C972AF /* Build configuration list for PBXNativeTarget "darling-stub-gen-test" */;
+			buildPhases = (
+				E976C60528E11CAC00C972AF /* Sources */,
+				E976C60628E11CAC00C972AF /* Frameworks */,
+				E976C60728E11CAC00C972AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "darling-stub-gen-test";
+			productName = "darling-stub-gen-test";
+			productReference = E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E9B947C2276E6757000D52A2 /* darling-stub-gen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9B947CA276E6757000D52A2 /* Build configuration list for PBXNativeTarget "darling-stub-gen" */;
@@ -216,6 +289,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					E976C60828E11CAC00C972AF = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					E9B947C2276E6757000D52A2 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -245,6 +321,7 @@
 			projectRoot = "";
 			targets = (
 				E9B947C2276E6757000D52A2 /* darling-stub-gen */,
+				E976C60828E11CAC00C972AF /* darling-stub-gen-test */,
 			);
 		};
 /* End PBXProject section */
@@ -273,7 +350,35 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXResourcesBuildPhase section */
+		E976C60728E11CAC00C972AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		E976C60528E11CAC00C972AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */,
+				E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */,
+				E976C61328E1204500C972AF /* DLObjectiveCIVar.m in Sources */,
+				E976C61428E1204500C972AF /* DLMainImage.m in Sources */,
+				E976C61528E1204500C972AF /* main.m in Sources */,
+				E976C61628E1204500C972AF /* DLArgumentParser.m in Sources */,
+				E976C61728E1204500C972AF /* DLLibraryParser.m in Sources */,
+				E976C61828E1204500C972AF /* DLLogResults.m in Sources */,
+				E976C61928E1204500C972AF /* DLStubBuilder.m in Sources */,
+				E976C61A28E1204500C972AF /* DLError.m in Sources */,
+				E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9B947BF276E6757000D52A2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,6 +386,8 @@
 				E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */,
 				E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */,
 				E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */,
+				E9C6F85428DCA20F00F1ED94 /* DLSwiftSymbols.m in Sources */,
+				E9F81AD328C8F5CF00B07345 /* DLError.m in Sources */,
 				E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */,
 				E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */,
 				E9B9486C277193E2000D52A2 /* DLObjectiveCMethod.m in Sources */,
@@ -292,6 +399,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		E976C60E28E11CAC00C972AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = include;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "darling.darling-stub-gen-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Debug;
+		};
+		E976C60F28E11CAC00C972AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = include;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "darling.darling-stub-gen-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Release;
+		};
 		E9B947C8276E6757000D52A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -408,7 +547,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					../include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -418,7 +560,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					../include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -426,6 +571,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E976C60D28E11CAC00C972AF /* Build configuration list for PBXNativeTarget "darling-stub-gen-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E976C60E28E11CAC00C972AF /* Debug */,
+				E976C60F28E11CAC00C972AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E9B947BE276E6757000D52A2 /* Build configuration list for PBXProject "darling-stub-gen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
