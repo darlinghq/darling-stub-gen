@@ -24,20 +24,30 @@
 #import "DLLibraryParser.h"
 #import "DLStubBuilder.h"
 #import "DLLogResults.h"
+#import "DLError.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        DLArgumentParser *argumentParser = [DLArgumentParser parseArguments:argv forSize:argc];
+        DLError *dlError = nil;
+        DLArgumentParser *argumentParser = [DLArgumentParser parseArguments:argv forSize:argc error:&dlError];
+        if (dlError != nil) {
+            [dlError terminateProgram];
+        }
         
-        NSError *error;
-        MKMemoryMap *memoryMap = [MKMemoryMap memoryMapWithContentsOfFile: argumentParser.inputUrl error: &error];
+        MKMemoryMap *memoryMap = [MKMemoryMap memoryMapWithContentsOfFile: argumentParser.inputUrl error:nil];
+//        if (error != nil) {
+//            [error terminateProgram];
+//        }
         
 //        MKFatBinary *fatBinary = [[MKFatBinary alloc] initWithMemoryMap: memoryMap error: &error];
 //        if (fatBinary != nil) {
 //            //
 //        }
         
-        MKMachOImage *machImage = [[MKMachOImage alloc] initWithName:nil flags:0 atAddress:0 inMapping:memoryMap error:&error];
+        MKMachOImage *machImage = [[MKMachOImage alloc] initWithName:nil flags:0 atAddress:0 inMapping:memoryMap error:nil];
+//        if (error != nil) {
+//            [error terminateProgram];
+//        }
         
         DLLibraryParser *libraryParser = [[DLLibraryParser alloc] initWithArguments:argumentParser];
         [libraryParser parseDependentLibraryWithMachOImage:machImage];

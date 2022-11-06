@@ -18,22 +18,33 @@
 */
 
 #import <Foundation/Foundation.h>
+#import <stdlib.h>
+
 #import "DLError.h"
 
-NS_ASSUME_NONNULL_BEGIN
+const NSErrorDomain ERRORDOMAIN_NOT_ENOUGH_ARGUMENT = (const NSErrorDomain)@"NOT_ENOUGH_ARUGMENTS";
 
-@interface DLArgumentParser : NSObject
+@implementation DLError
 
-@property(readonly) NSString* inputFile;
-@property(readonly) NSString* outputPath;
-@property(readonly) bool logSymbols;
-@property(readonly) bool useMethodSignature;
++(DLError*)notEnoughArguments {
+    return [DLError
+        errorWithDomain:(NSErrorDomain)ERRORDOMAIN_NOT_ENOUGH_ARGUMENT
+        code:NOT_ENOUGH_ARGUMENTS
+        userInfo:nil
+    ];
+}
 
-+(instancetype)parseArguments:(const char *_Nonnull*_Nonnull)argv forSize:(int)argc error:(DLError *_Nullable*_Nullable)error;
+-(void)terminateProgram {
+    [self printReason];
+    exit(-1);
+}
 
--(NSURL*) inputUrl;
--(NSURL*) outputUrl;
+-(void)printReason {
+    if ([ERRORDOMAIN_NOT_ENOUGH_ARGUMENT isEqualToString: [self domain]]) {
+        NSLog(@"%s", "Not enough arguments");
+    }
+}
 
 @end
 
-NS_ASSUME_NONNULL_END
+

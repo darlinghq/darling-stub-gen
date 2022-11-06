@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSMutableArray<NSString*> *externalSymbols;
 @property(readonly) NSMutableArray<NSString*> *undefinedSymbols;
 
+@property(readonly) NSMutableArray<NSString*> *functionCPP;
+
 -(instancetype)initWithArguments:(DLArgumentParser*)arugmentParser;
 -(void)parseCurrentMachOImage:(MKMachOImage*)image;
 -(void)parseDependentLibraryWithMachOImage:(MKMachOImage*)image;

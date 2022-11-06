@@ -18,10 +18,17 @@
 */
 
 #import "DLArgumentParser.h"
+#import "DLError.h"
+
 
 @implementation DLArgumentParser
 
--(instancetype)initWithArguments:(const char *_Nonnull*)argv forSize:(int)argc {
+-(instancetype)initWithArguments:(const char *_Nonnull*)argv forSize:(int)argc error:(DLError**)error {
+    if (argc < 2) {
+        if (error != nil) { *error = [DLError notEnoughArguments]; }
+        return nil;
+    }
+    
     _inputFile = [NSString stringWithUTF8String:argv[1]];
     _outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
     
@@ -30,8 +37,8 @@
     return self;
 }
 
-+(instancetype)parseArguments:(const char *_Nonnull*)argv forSize:(int)argc {
-    DLArgumentParser *argumentParser = [[DLArgumentParser alloc] initWithArguments:argv forSize:argc];
++(instancetype)parseArguments:(const char *_Nonnull*)argv forSize:(int)argc error:(DLError**)error {
+    DLArgumentParser *argumentParser = [[DLArgumentParser alloc] initWithArguments:argv forSize:argc error:error];
     return argumentParser;
 }
 

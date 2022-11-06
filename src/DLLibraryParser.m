@@ -48,6 +48,8 @@ const NSString *OBJC_PROTOCOL_METHOD_TYPES = @"__OBJC_$_PROTOCOL_METHOD_TYPES_";
 const NSString *OBJC_PROTOCOL_REFERENCE = @"__OBJC_PROTOCOL_REFERENCE_$_";
 const NSString *OBJC_PROTOCOL_REFS = @"__OBJC_$_PROTOCOL_REFS_";
 
+const NSString *CPP_SYMBOL_IDENTIFIER = @"__Z";
+
 const NSSet<NSString*> *backlistedObjC = nil;
 
 bool isValidCMethod(NSString *symbol);
@@ -65,6 +67,7 @@ void createBlacklistedSymbols(void);
     _variableObjC = [[NSMutableDictionary alloc] init];
     
     functionsC = [[NSMutableArray alloc] init];
+    _functionCPP =  [[NSMutableArray alloc] init];
     
     _localIgnoreSymbols = [[NSMutableArray alloc] init];
     _localUnknownSymbols = [[NSMutableArray alloc] init];
@@ -162,6 +165,9 @@ void createBlacklistedSymbols(void);
                        || [name containsString:@"GCC_except_table"] || [name containsString:@"___copy_helper_block"]
                        || [name containsString:@"___destroy_helper_block"]) {
                 [_localIgnoreSymbols addObject:name];
+            
+            } else if ([name hasPrefix:(NSString*)CPP_SYMBOL_IDENTIFIER]) {
+                [_functionCPP addObject:name];
             
             } else if (isValidCMethod(name)) {
                 [functionsC addObject:name];

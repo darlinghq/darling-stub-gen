@@ -17,23 +17,20 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <Foundation/Foundation.h>
-#import "DLError.h"
+#ifndef DLError_h
+#define DLError_h
 
-NS_ASSUME_NONNULL_BEGIN
+extern const NSErrorDomain ERRORDOMAIN_NOT_ENOUGH_ARGUMENT;
 
-@interface DLArgumentParser : NSObject
+typedef NS_ENUM(NSInteger, DLErrorCode) {
+    NOT_ENOUGH_ARGUMENTS,
+};
 
-@property(readonly) NSString* inputFile;
-@property(readonly) NSString* outputPath;
-@property(readonly) bool logSymbols;
-@property(readonly) bool useMethodSignature;
+@interface DLError : NSError
 
-+(instancetype)parseArguments:(const char *_Nonnull*_Nonnull)argv forSize:(int)argc error:(DLError *_Nullable*_Nullable)error;
-
--(NSURL*) inputUrl;
--(NSURL*) outputUrl;
++(DLError*)notEnoughArguments;
+-(void)terminateProgram;
 
 @end
 
-NS_ASSUME_NONNULL_END
+#endif /* DLError_h */
