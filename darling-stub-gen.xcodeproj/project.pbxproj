@@ -9,10 +9,15 @@
 /* Begin PBXBuildFile section */
 		E9372EAF27B0A6FF00C5298C /* MachOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); };
 		E9372EB027B0A6FF00C5298C /* MachOKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E9625058291829280034FEF0 /* DLObjectiveCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */; };
+		E9625059291829290034FEF0 /* DLObjectiveCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */; };
 		E9679B862772DBBA00215D6C /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
 		E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
 		E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
 		E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
+		E970D283291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
+		E970D284291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
+		E970D28B29185A5D0082AD77 /* ObjectiveCSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */; };
 		E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */; };
 		E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
 		E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
@@ -81,6 +86,8 @@
 
 /* Begin PBXFileReference section */
 		E9372E9427B0A56B00C5298C /* MachOKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MachOKit.xcodeproj; path = "external/MachO-Kit/MachOKit.xcodeproj"; sourceTree = "<group>"; };
+		E9625056291829280034FEF0 /* DLObjectiveCSymbols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjectiveCSymbols.h; sourceTree = "<group>"; };
+		E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjectiveCSymbols.m; sourceTree = "<group>"; };
 		E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjectiveCIVar.h; sourceTree = "<group>"; };
 		E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjectiveCIVar.m; sourceTree = "<group>"; };
 		E9679BA927751A5900215D6C /* DLArgumentParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLArgumentParser.h; sourceTree = "<group>"; };
@@ -89,6 +96,9 @@
 		E9679BAD277670DC00215D6C /* DLLogResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLLogResults.m; sourceTree = "<group>"; };
 		E9679BAF2776D51D00215D6C /* DLMainImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLMainImage.h; sourceTree = "<group>"; };
 		E9679BB02776D51D00215D6C /* DLMainImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLMainImage.m; sourceTree = "<group>"; };
+		E970D281291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+AutoInsertEntry.h"; sourceTree = "<group>"; };
+		E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+AutoInsertEntry.m"; sourceTree = "<group>"; };
+		E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCSymbolTest.m; sourceTree = "<group>"; };
 		E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftSymbolTest.m; sourceTree = "<group>"; };
 		E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "darling-stub-gen-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B947C3276E6757000D52A2 /* darling-stub-gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "darling-stub-gen"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +138,7 @@
 		E9237FCD28B1CE4A007F9CEB /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E970D288291853C40082AD77 /* category */,
 				E9237FD128B1CE7E007F9CEB /* symbols */,
 				E9B947C6276E6757000D52A2 /* main.m */,
 				E9679BAA27751A5900215D6C /* DLArgumentParser.m */,
@@ -142,9 +153,8 @@
 		E9237FD128B1CE7E007F9CEB /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9625053291827930034FEF0 /* objectivec */,
 				E9C6F85128DCA17D00F1ED94 /* swift */,
-				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
-				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
 				E9679BB02776D51D00215D6C /* DLMainImage.m */,
 			);
 			path = symbols;
@@ -160,9 +170,46 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E9625053291827930034FEF0 /* objectivec */ = {
+			isa = PBXGroup;
+			children = (
+				E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */,
+				E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */,
+				E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */,
+			);
+			path = objectivec;
+			sourceTree = "<group>";
+		};
+		E9625054291827F20034FEF0 /* objectivec */ = {
+			isa = PBXGroup;
+			children = (
+				E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */,
+				E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */,
+				E9625056291829280034FEF0 /* DLObjectiveCSymbols.h */,
+			);
+			path = objectivec;
+			sourceTree = "<group>";
+		};
+		E970D288291853C40082AD77 /* category */ = {
+			isa = PBXGroup;
+			children = (
+				E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */,
+			);
+			path = category;
+			sourceTree = "<group>";
+		};
+		E970D289291853EF0082AD77 /* category */ = {
+			isa = PBXGroup;
+			children = (
+				E970D281291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.h */,
+			);
+			path = category;
+			sourceTree = "<group>";
+		};
 		E976C60A28E11CAC00C972AF /* test */ = {
 			isa = PBXGroup;
 			children = (
+				E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */,
 				E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */,
 			);
 			path = test;
@@ -191,12 +238,13 @@
 		E9B947C5276E6757000D52A2 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				E970D289291853EF0082AD77 /* category */,
+				E9B948692771938F000D52A2 /* symbols */,
 				E9679BA927751A5900215D6C /* DLArgumentParser.h */,
 				E9B94840276EF75C000D52A2 /* DLLibraryParser.h */,
 				E9679BAC277670DC00215D6C /* DLLogResults.h */,
 				E9B9484627702948000D52A2 /* DLStubBuilder.h */,
 				E9F81AD428C8F60A00B07345 /* DLError.h */,
-				E9B948692771938F000D52A2 /* symbols */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -218,9 +266,8 @@
 		E9B948692771938F000D52A2 /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9625054291827F20034FEF0 /* objectivec */,
 				E9C6F84D28DCA17100F1ED94 /* swift */,
-				E9B9486A277193E2000D52A2 /* DLObjectiveCMethod.h */,
-				E9679B842772DBBA00215D6C /* DLObjectiveCIVar.h */,
 				E9679BAF2776D51D00215D6C /* DLMainImage.h */,
 			);
 			path = symbols;
@@ -372,10 +419,13 @@
 				E976C61528E1204500C972AF /* main.m in Sources */,
 				E976C61628E1204500C972AF /* DLArgumentParser.m in Sources */,
 				E976C61728E1204500C972AF /* DLLibraryParser.m in Sources */,
+				E9625059291829290034FEF0 /* DLObjectiveCSymbols.m in Sources */,
 				E976C61828E1204500C972AF /* DLLogResults.m in Sources */,
+				E970D28B29185A5D0082AD77 /* ObjectiveCSymbolTest.m in Sources */,
 				E976C61928E1204500C972AF /* DLStubBuilder.m in Sources */,
 				E976C61A28E1204500C972AF /* DLError.m in Sources */,
 				E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */,
+				E970D284291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +434,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */,
+				E970D283291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */,
+				E9625058291829280034FEF0 /* DLObjectiveCSymbols.m in Sources */,
 				E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */,
 				E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */,
 				E9C6F85428DCA20F00F1ED94 /* DLSwiftSymbols.m in Sources */,
