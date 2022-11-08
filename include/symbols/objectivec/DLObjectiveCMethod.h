@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DLObjectiveCMethod : NSObject
 
-@property(readonly) NSString* className;
+@property(readonly) NSString* interfaceName;
 @property(readonly) NSString* methodType;
 @property(readonly) NSMutableArray<NSString*> *methodParts;
 

@@ -22,8 +22,7 @@
 
 #import "DLArgumentParser.h"
 #import "symbols/DLMainImage.h"
-#import "symbols/DLObjectiveCMethod.h"
-#import "symbols/DLObjectiveCIVar.h"
+#import "symbols/objectivec/DLObjectiveCSymbols.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,10 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) DLMainImage* mainImage;
 
-@property(readonly) NSMutableSet<NSString*> *classnameObjC;
-@property(readonly) NSMutableSet<NSString*> *protocolObjC;
-@property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCMethod*>*> *methodsObjC;
-@property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCIVar*>*> *variableObjC;
+@property(readonly) DLObjectiveCSymbols *objCSymbols;
 
 @property(readonly) NSMutableArray<NSString*> *localUnknownSymbols;
 @property(readonly) NSMutableArray<NSString*> *localIgnoreSymbols;

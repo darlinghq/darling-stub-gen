@@ -22,7 +22,7 @@
 @implementation DLObjectiveCMethod
 
 -(instancetype)init {
-    _className = nil;
+    _interfaceName = nil;
     _methodType = nil;
     _methodParts = [[NSMutableArray alloc] init];
     return self;
@@ -31,7 +31,7 @@
 -(NSString*)description {
     NSMutableString *temp = [[NSMutableString alloc] init];
     
-    [temp appendString:_methodType]; [temp appendString:@"["]; [temp appendString:_className];
+    [temp appendString:_methodType]; [temp appendString:@"["]; [temp appendString:_interfaceName];
     
     [temp appendString:@" "];
     for (NSString *currentSelector in _methodParts) {
@@ -78,7 +78,7 @@
     NSArray<NSString*> *splitMethod = [[[method substringToIndex:method.length-1] substringFromIndex:2] componentsSeparatedByString:@" "];
     NSString *selector = [splitMethod objectAtIndex:1];
     
-    _className = [splitMethod objectAtIndex:0];
+    _interfaceName = [splitMethod objectAtIndex:0];
     _methodType = [method substringToIndex:1];
     
     

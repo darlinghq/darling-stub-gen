@@ -101,46 +101,46 @@ const NSString *OBJ_C_END = @"@end\n";
     
     NSMutableArray<NSString*> *mainHeaderIncludes = [[NSMutableArray alloc] init];
     NSMutableArray<NSString*> *listOfSourceFiles = [[NSMutableArray alloc] init];
-    for (NSString *classname in libraryParser.classnameObjC) {
-        NSMutableArray<DLObjectiveCIVar*>* listOfVariables = [libraryParser.variableObjC[classname] copy];
-        NSMutableArray<DLObjectiveCMethod*>* listOfMethods = [libraryParser.methodsObjC[classname] copy];
-        
-        NSURL *sourceFilePath = [_srcFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.m", classname]];
-        NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", classname]];
+    for (NSString *className in libraryParser.objCSymbols.interfaces) {
+        NSMutableArray<DLObjectiveCIVar*>* listOfVariables = [libraryParser.objCSymbols.variables[className] copy];
+        NSMutableArray<DLObjectiveCMethod*>* listOfMethods = [libraryParser.objCSymbols.methods[className] copy];
+
+        NSURL *sourceFilePath = [_srcFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.m", className]];
+        NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", className]];
         NSMutableString *sourceFile = [[NSMutableString alloc] initWithString:@""];
         NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
-        
-        [mainHeaderIncludes addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, classname]];
-        [self generateHeaderFor:classname
+
+        [mainHeaderIncludes addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, className]];
+        [self generateHeaderFor:className
                    usingMethods:listOfMethods
                       variables:listOfVariables
                     andObjCType:(NSString*)OBJ_C_INTERFACE
              withResultsSavedTo:includeFile];
-        [self generateSourceFor:classname
+        [self generateSourceFor:className
                       toLibrary:libraryName
                    usingMethods:listOfMethods
                       variables:listOfVariables
                     andObjCType:(NSString*)OBJ_C_IMPLEMENTATION
              withResultsSavedTo:sourceFile];
-        
-        [listOfSourceFiles addObject: [NSString stringWithFormat:@"src/%@.m", classname]];
-        
+
+        [listOfSourceFiles addObject: [NSString stringWithFormat:@"src/%@.m", className]];
+
         [sourceFile writeToURL:sourceFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
     
-    for (NSString *protocol in libraryParser.protocolObjC) {
+    for (NSString *protocol in libraryParser.objCSymbols.protocols) {
         NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", protocol]];
         NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
-        
+
         [mainHeaderIncludes addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, protocol]];
-        
+
         [self generateHeaderFor:protocol
                    usingMethods:nil
                       variables:nil
                     andObjCType:(NSString*)OBJ_C_PROTOCAL
              withResultsSavedTo:includeFile];
-        
+
         [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
     
