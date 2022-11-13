@@ -57,7 +57,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;/Users/thomasa/Desktop/macOS 12.5.1 Shared Cache/System/Library/Frameworks/Combine.framework/Versions/A/Combine&quot;"
+            argument = "&quot;/Users/thomasa/Desktop/macOS 12.5.1 Shared Cache/System/Library/PrivateFrameworks/InternationalSupport.framework/Versions/A/InternationalSupport&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

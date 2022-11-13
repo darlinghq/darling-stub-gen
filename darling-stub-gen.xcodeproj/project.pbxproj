@@ -18,6 +18,7 @@
 		E970D283291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
 		E970D284291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
 		E970D28B29185A5D0082AD77 /* ObjectiveCSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */; };
+		E970D29F291C1CEB0082AD77 /* DLObjCStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */; };
 		E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */; };
 		E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
 		E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
@@ -99,6 +100,8 @@
 		E970D281291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+AutoInsertEntry.h"; sourceTree = "<group>"; };
 		E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+AutoInsertEntry.m"; sourceTree = "<group>"; };
 		E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveCSymbolTest.m; sourceTree = "<group>"; };
+		E970D29D291C1CEB0082AD77 /* DLObjCStubBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLObjCStubBuilder.h; sourceTree = "<group>"; };
+		E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjCStubBuilder.m; sourceTree = "<group>"; };
 		E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftSymbolTest.m; sourceTree = "<group>"; };
 		E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "darling-stub-gen-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B947C3276E6757000D52A2 /* darling-stub-gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "darling-stub-gen"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E970D288291853C40082AD77 /* category */,
+				E970D298291C1C150082AD77 /* stubs */,
 				E9237FD128B1CE7E007F9CEB /* symbols */,
 				E9B947C6276E6757000D52A2 /* main.m */,
 				E9679BAA27751A5900215D6C /* DLArgumentParser.m */,
@@ -206,6 +210,22 @@
 			path = category;
 			sourceTree = "<group>";
 		};
+		E970D298291C1C150082AD77 /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */,
+			);
+			path = stubs;
+			sourceTree = "<group>";
+		};
+		E970D29C291C1C9E0082AD77 /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				E970D29D291C1CEB0082AD77 /* DLObjCStubBuilder.h */,
+			);
+			path = stubs;
+			sourceTree = "<group>";
+		};
 		E976C60A28E11CAC00C972AF /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				E970D289291853EF0082AD77 /* category */,
+				E970D29C291C1C9E0082AD77 /* stubs */,
 				E9B948692771938F000D52A2 /* symbols */,
 				E9679BA927751A5900215D6C /* DLArgumentParser.h */,
 				E9B94840276EF75C000D52A2 /* DLLibraryParser.h */,
@@ -439,6 +460,7 @@
 				E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */,
 				E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */,
 				E9C6F85428DCA20F00F1ED94 /* DLSwiftSymbols.m in Sources */,
+				E970D29F291C1CEB0082AD77 /* DLObjCStubBuilder.m in Sources */,
 				E9F81AD328C8F5CF00B07345 /* DLError.m in Sources */,
 				E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */,
 				E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */,
