@@ -21,6 +21,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern id (^initalizeNSMutableArray)(void);
+
 @interface NSMutableDictionary<DrKeyType,DrObjectType> (AutoInsertEntry)
 
 - (DrObjectType)objectForKey:(DrKeyType)aKey createIfNoneExist:(DrObjectType (^)(void))initalize_object;

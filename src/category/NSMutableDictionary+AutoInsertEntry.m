@@ -19,6 +19,10 @@
 
 #import "NSMutableDictionary+AutoInsertEntry.h"
 
+id (^initalizeNSMutableArray)(void) = ^{
+    return [[NSMutableArray alloc] init];
+};
+
 @implementation NSMutableDictionary (AutoInsertEntry)
 
 - (id)objectForKey:(id)aKey createIfNoneExist:(id (^)(void))initalize_object {
