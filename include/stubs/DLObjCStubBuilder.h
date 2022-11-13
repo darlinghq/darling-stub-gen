@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern const NSString *OBJ_C_IMPLEMENTATION;
 extern const NSString *OBJ_C_IMPLEMENTATION_CATEGORY;
 extern const NSString *OBJ_C_PROTOCAL;
-extern const NSString *OBJ_C_INTERFACE_CLASSNAME;
-extern const NSString *OBJ_C_INTERFACE_CATEGORY;
+extern const NSString *OBJ_C_INTERFACE_EXTENDS_NSOBJECT;
+extern const NSString *OBJ_C_INTERFACE;
 extern const NSString *OBJ_C_END;
 
 @interface DLObjCStubBuilder : NSObject {
@@ -39,11 +39,9 @@ extern const NSString *OBJ_C_END;
                   andObjcSymbols:(DLObjectiveCSymbols*)objCSymbols;
 
 -(void) generateHeaderFor:(NSString*)key
-              andObjCType:(NSString*)objCType
        withResultsSavedTo:(NSMutableString*)mutableHeaderString;
 -(void) generateSourceFor:(NSString*)key
                 toLibrary:(NSString*)libraryName
-              andObjCType:(NSString*)objCType
        withResultsSavedTo:(NSMutableString*)mutableHeaderString;
 
 @property(readonly) DLObjectiveCSymbols *objCSymbols;

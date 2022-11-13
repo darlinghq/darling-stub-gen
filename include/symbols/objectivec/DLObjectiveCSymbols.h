@@ -22,18 +22,18 @@
 #import "DLObjectiveCMethod.h"
 #import "DLObjectiveCIVar.h"
 
-typedef enum ObjectiveCSymbolsResults {
+typedef NS_ENUM(NSUInteger, DLObjectiveCSymbolsResults)  {
     OBJC_SYMBOLS_BLACKLIST_CLASS,
     OBJC_SYMBOLS_IGNORED,
     OBJC_SYMBOLS_NOT_VALID,
     OBJC_SYMBOLS_SUCCESS
-} ObjectiveCSymbolsResults;
+};
 
-typedef enum ObjectiveCType {
+typedef NS_ENUM(NSUInteger, DLObjectiveCType) {
     OBJC_TYPE_CATEGORY,
-    OBJC_TYPE_INTERFACE,
+    OBJC_TYPE_CLASS,
     OBJC_TYPE_PROTOCOL
-} ObjectiveCType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,11 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCMethod*>*> *methods;
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCIVar*>*> *variables;
-@property(readonly) NSMutableDictionary<NSString*,NSString*> *keyToProperName;
+@property(readonly) NSMutableDictionary<NSString*,NSNumber*> *type;
+@property(readonly) NSMutableDictionary<NSString*,NSString*> *properName;
 
 @property(readonly) NSMutableArray<NSString*> *ignored;
 
--(ObjectiveCSymbolsResults)addObjectiveCSymbol:(NSString*)symbol;
+-(DLObjectiveCSymbolsResults)addObjectiveCSymbol:(NSString*)symbol;
 -(void)sortResults;
 
 @end

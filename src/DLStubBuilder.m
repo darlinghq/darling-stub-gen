@@ -97,21 +97,18 @@ void* %s(void)\n\
     
     for (NSString *interfaceName in _libraryParser.objCSymbols.interfaceKeys) {
         [self generateObjCFilesFromKey:interfaceName
-                           forObjCType:OBJC_TYPE_INTERFACE
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
     }
     
     for (NSString *categoryName in _libraryParser.objCSymbols.categoryKeys) {
         [self generateObjCFilesFromKey:categoryName
-                           forObjCType:OBJC_TYPE_CATEGORY
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
     }
     
     for (NSString *protocolName in _libraryParser.objCSymbols.protocolKeys) {
         [self generateObjCFilesFromKey:protocolName
-                           forObjCType:OBJC_TYPE_PROTOCOL
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
     }
@@ -121,58 +118,35 @@ void* %s(void)\n\
 }
 
 -(void) generateObjCFilesFromKey:(NSString*)key
-                     forObjCType:(ObjectiveCType)objCType
                     usingSymbols:(DLObjCStubBuilder*)objCStubBuilder
                       forLibrary:(NSString*)libraryName {
     NSString *fileName = _libraryParser.objCSymbols.filenames[key];
-    NSString *objCTypeHeader = nil;
-    NSString *objCTypeSource = nil;
     
-    if (objCType == OBJC_TYPE_CATEGORY) {
-        objCTypeHeader = (NSString*)OBJ_C_INTERFACE_CATEGORY;
-        objCTypeSource = (NSString*)OBJ_C_IMPLEMENTATION_CATEGORY;
-    } else if (objCType == OBJC_TYPE_INTERFACE) {
-        objCTypeHeader = (NSString*)OBJ_C_INTERFACE_CLASSNAME;
-        objCTypeSource = (NSString*)OBJ_C_IMPLEMENTATION;
-    } else if (objCType == OBJC_TYPE_PROTOCOL) {
-        objCTypeHeader = (NSString*)OBJ_C_PROTOCAL;
-        // objCTypeSource = nil
-    }
     
-    // Only include an Objective-C header if we are doing to actually make one.
-    if (objCTypeHeader != nil) {
-        // Add header to main header
-        [_mainIncludeHeader addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, fileName]];
-        
-        // Generate the header file
-        NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
-        [self appendCopyRightHeaderTo:includeFile];
-        [objCStubBuilder generateHeaderFor:key
-                               andObjCType:(NSString*)objCTypeHeader
-                        withResultsSavedTo:includeFile];
-        
-        // Save the generated header file on disk
-        NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", fileName]];
-        [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }
+    // Add header to main header
+    [_mainIncludeHeader addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, fileName]];
     
-    if (objCTypeSource != nil) {
-        // Add source to CMake build list
-        [_sourceFileList addObject: [NSString stringWithFormat:@"src/%@.m", fileName]];
-        
-        // Generate source file
-        NSMutableString *sourceFile = [[NSMutableString alloc] initWithString:@""];
-        [self appendCopyRightHeaderTo:sourceFile];
-        [objCStubBuilder generateSourceFor:key
-                                 toLibrary:libraryName
-                               andObjCType:(NSString*)OBJ_C_IMPLEMENTATION
-                        withResultsSavedTo:sourceFile];
-        
-        // Save the generated source file on disk
-        NSURL *sourceFilePath = [_srcFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.m", fileName]];
-        [sourceFile writeToURL:sourceFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }
-
+    // Generate the header file
+    NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
+    [self appendCopyRightHeaderTo:includeFile];
+    [objCStubBuilder generateHeaderFor:key withResultsSavedTo:includeFile];
+    
+    // Save the generated header file on disk
+    NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", fileName]];
+    [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    // Add source to cMake build list
+    [_sourceFileList addObject: [NSString stringWithFormat:@"src/%@.m", fileName]];
+    
+    // Generate source file
+    NSMutableString *sourceFile = [[NSMutableString alloc] initWithString:@""];
+    [self appendCopyRightHeaderTo:sourceFile];
+    [objCStubBuilder generateSourceFor:key toLibrary:libraryName withResultsSavedTo:sourceFile];
+    
+    // Save the generated source file on disk
+    NSURL *sourceFilePath = [_srcFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.m", fileName]];
+    [sourceFile writeToURL:sourceFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 -(void) generateCMakeListsFrom:(DLLibraryParser*)libraryParser
@@ -180,33 +154,47 @@ void* %s(void)\n\
     NSURL *cMakeListsPath = [_rootFolder URLByAppendingPathComponent: @"CMakeLists.txt"];
     NSMutableString *cMakeLists = [[NSMutableString alloc] init];
     NSString *libraryName = libraryParser.mainImage.imageName;
+    DLMainImageFrameworkType frameworkType = libraryParser.mainImage.frameworkType;
     DLMainImageImageType imageType = libraryParser.mainImage.imageType;
     
     [cMakeLists appendFormat:@"project(%@)\n\n",libraryName];
+    
+    [cMakeLists appendFormat:@"remove_sdk_framework(%@", libraryName];
+    if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\n\tPRIVATE\n"]; }
+    [cMakeLists appendString:@")\n\n"];
     
     if (imageType == ImageTypeDylib) { [cMakeLists appendFormat:@"set(DYLIB_INSTALL_NAME \"%@\")\n",libraryParser.mainImage.imagePath]; }
     [cMakeLists appendFormat:@"set(DYLIB_COMPAT_VERSION \"%@\")\n",libraryParser.mainImage.compabilityVersion];
     [cMakeLists appendFormat:@"set(DYLIB_CURRENT_VERSION \"%@\")\n\n",libraryParser.mainImage.currentVersion];
     
+    [cMakeLists appendString:@"set(FRAMEWORK_VERSION \"A\")\n\n"];
     
+    [cMakeLists appendFormat:@"generate_sdk_framework(%@\n", libraryName];
+    if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\tPRIVATE\n"]; }
+    [cMakeLists appendString:@"\tVERSION ${FRAMEWORK_VERSION}\n"];
+    [cMakeLists appendFormat:@"\tHEADER \"include/%@\"\n", libraryName];
+    [cMakeLists appendString:@")\n\n"];
+    
+    [cMakeLists appendString:@"\n"];
     if (imageType == ImageTypeFramework) {
-            [cMakeLists appendFormat:@"add_framework(%@\n",libraryName];
-            [cMakeLists appendString:@"\tFAT\n"];
-            [cMakeLists appendString:@"\tCURRENT_VERSION\n"];
-            [cMakeLists appendString:@"\tVERSION \"A\"\n\n"];
-            
-            [cMakeLists appendString:@"\tSOURCES\n"];
-            for (NSString *sourceFile in listOfSourceFiles) {
-                [cMakeLists appendFormat:@"\t\t%@\n", sourceFile];
-            }
-            [cMakeLists appendString:@"\n\n"];
-            
-            [cMakeLists appendString:@"\tDEPENDENCIES\n"];
-            [cMakeLists appendString:@"\t\tsystem\n"];
-            [cMakeLists appendString:@"\t\tobjc\n"];
-            [cMakeLists appendString:@"\t\tFoundation\n"];
-            
-            [cMakeLists appendString:@"}"];
+        [cMakeLists appendFormat:@"add_framework(%@\n",libraryName];
+        if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\tPRIVATE\n"]; }
+        [cMakeLists appendString:@"\tFAT\n"];
+        [cMakeLists appendString:@"\tCURRENT_VERSION\n"];
+        [cMakeLists appendString:@"\tVERSION ${FRAMEWORK_VERSION}\n\n"];
+        
+        [cMakeLists appendString:@"\tSOURCES\n"];
+        for (NSString *sourceFile in listOfSourceFiles) {
+            [cMakeLists appendFormat:@"\t\t%@\n", sourceFile];
+        }
+        [cMakeLists appendString:@"\n"];
+        
+        [cMakeLists appendString:@"\tDEPENDENCIES\n"];
+        [cMakeLists appendString:@"\t\tsystem\n"];
+        [cMakeLists appendString:@"\t\tobjc\n"];
+        [cMakeLists appendString:@"\t\tFoundation\n"];
+        
+        [cMakeLists appendString:@")"];
     } else if (imageType == ImageTypeDylib) {
         /*
          

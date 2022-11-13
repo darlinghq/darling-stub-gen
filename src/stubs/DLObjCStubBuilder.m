@@ -33,10 +33,9 @@ const NSString *defaultObjCMethodStub = @"\
 ";
 
 const NSString *OBJ_C_IMPLEMENTATION = @"@implementation %@\n";
-const NSString *OBJ_C_IMPLEMENTATION_CATEGORY = @"@implementation %@\n";
 const NSString *OBJ_C_PROTOCAL = @"@protocol %@";
-const NSString *OBJ_C_INTERFACE_CLASSNAME = @"@interface %@ : NSObject";
-const NSString *OBJ_C_INTERFACE_CATEGORY = @"@interface %@";
+const NSString *OBJ_C_INTERFACE = @"@interface %@";
+const NSString *OBJ_C_INTERFACE_EXTENDS_NSOBJECT = @"@interface %@ : NSObject";
 const NSString *OBJ_C_END = @"@end\n";
 
 @implementation DLObjCStubBuilder
@@ -49,20 +48,30 @@ const NSString *OBJ_C_END = @"@end\n";
 }
 
 -(void) generateHeaderFor:(NSString*)key
-              andObjCType:(NSString*)objCType
        withResultsSavedTo:(NSMutableString*)mutableHeaderString {
-
+    NSArray<DLObjectiveCMethod*> *listOfMethods = _objCSymbols.methods[key];
+    NSMutableArray<DLObjectiveCIVar*> *listOfVariables = _objCSymbols.variables[key];
+    DLObjectiveCType objCType = [_objCSymbols.type[key] unsignedIntegerValue];
+    
+    NSString *objCString = nil;
+    if (objCType == OBJC_TYPE_CLASS) {
+        objCString = (NSString*)OBJ_C_INTERFACE_EXTENDS_NSOBJECT;
+    } else if (objCType == OBJC_TYPE_CATEGORY) {
+        objCString = (NSString*)OBJ_C_INTERFACE;
+    } else if (objCType == OBJC_TYPE_PROTOCOL) {
+        objCString = (NSString*)OBJ_C_PROTOCAL;
+    } else {
+        NSLog(@"Unknown objCType");
+        return;
+    }
+    
     
     [mutableHeaderString appendString:@"#include <Foundation/Foundation.h>\n"];
     [mutableHeaderString appendString:@"\n"];
     
-    [mutableHeaderString appendFormat:objCType, _objCSymbols.keyToProperName[key]];
+    [mutableHeaderString appendFormat:objCString, _objCSymbols.properName[key]];
     
-    
-    NSArray<DLObjectiveCMethod*> *listOfMethods = _objCSymbols.methods[key];
-    NSMutableArray<DLObjectiveCIVar*> *listOfVariables = _objCSymbols.variables[key];
-    
-    if ([OBJ_C_INTERFACE_CLASSNAME isEqualToString:objCType]) {
+    if (objCType == OBJC_TYPE_CLASS) {
         if (!_arguments.useMethodSignature) {
             if (listOfMethods.count > 0) {
                 [mutableHeaderString appendString:@" {\n"];
@@ -82,14 +91,13 @@ const NSString *OBJ_C_END = @"@end\n";
         } else {
             [mutableHeaderString appendString:@"\n"];
         }
-        
     }
     
-    else if ([OBJ_C_IMPLEMENTATION_CATEGORY isEqualToString:objCType]) {
-        
+    else if (objCType == OBJC_TYPE_CATEGORY) {
+        [mutableHeaderString appendString:@"\n"];
     }
     
-    else if ([OBJ_C_PROTOCAL isEqualToString:objCType]) {
+    else if (objCType == OBJC_TYPE_PROTOCOL) {
         [mutableHeaderString appendString:@"\n"];
     }
     
@@ -99,22 +107,32 @@ const NSString *OBJ_C_END = @"@end\n";
 
 -(void) generateSourceFor:(NSString*)key
                 toLibrary:(NSString*)libraryName
-              andObjCType:(NSString*)objCType
        withResultsSavedTo:(NSMutableString*)mutableHeaderString
 {
     NSArray<DLObjectiveCMethod*> *listOfMethods = _objCSymbols.methods[key];
+    DLObjectiveCType objCType = [_objCSymbols.type[key] unsignedIntegerValue];
     
-//    [mutableHeaderString appendString:@"#include <Foundation/Foundation.h>\n"];
-    [mutableHeaderString appendFormat:@"#import <%@/%@.h>\n", libraryName, _objCSymbols.keyToProperName[key]];
+    NSString *objCString = nil;
+    if (objCType == OBJC_TYPE_CLASS) {
+        objCString = (NSString*)OBJ_C_IMPLEMENTATION;
+    } else if (objCType == OBJC_TYPE_CATEGORY) {
+        objCString = (NSString*)OBJ_C_IMPLEMENTATION;
+    } else {
+        NSLog(@"Unknown objCType");
+        return;
+    }
+    
+    
+    [mutableHeaderString appendFormat:@"#import <%@/%@.h>\n", libraryName, _objCSymbols.filenames[key]];
     [mutableHeaderString appendString:@"\n"];
     
-    [mutableHeaderString appendFormat:objCType, _objCSymbols.keyToProperName[key]];
+    [mutableHeaderString appendFormat:objCString, _objCSymbols.properName[key]];
     [mutableHeaderString appendString:@"\n"];
     
-    if ([OBJ_C_IMPLEMENTATION isEqualToString:objCType]) {
-        if (_arguments.useMethodSignature) {
+    if (objCString == OBJ_C_IMPLEMENTATION) {
+        if (_arguments.useMethodSignature && objCType != OBJC_TYPE_CATEGORY) {
             [mutableHeaderString appendString:(NSString*)defaultObjCMethodStub];
-        } else if (listOfMethods.count > 0) {
+        } else if (!_arguments.useMethodSignature && listOfMethods.count > 0) {
             for (DLObjectiveCMethod *objCMethod in listOfMethods) {
                 [mutableHeaderString appendFormat:@"%@ {\n\t%@\n}\n\n", [objCMethod generateStubMethod], @"NSLog(@\"%@\", NSStringFromSelector(_cmd));"];
             }

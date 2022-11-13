@@ -96,7 +96,8 @@ void createBlacklistedSymbols() {
     
     _methods = [[NSMutableDictionary alloc] init];
     _variables = [[NSMutableDictionary alloc] init];
-    _keyToProperName = [[NSMutableDictionary alloc] init];
+    _type = [[NSMutableDictionary alloc] init];
+    _properName = [[NSMutableDictionary alloc] init];
     
     _ignored = [[NSMutableArray alloc] init];
     
@@ -107,7 +108,7 @@ void createBlacklistedSymbols() {
     return self;
 }
 
--(ObjectiveCSymbolsResults)addObjectiveCSymbol:(NSString*)symbol {
+-(DLObjectiveCSymbolsResults)addObjectiveCSymbol:(NSString*)symbol {
     if ([symbol hasPrefix:(NSString*)OBJC_CLASS_METHOD_IDENTIFIER]
         || [symbol hasPrefix:(NSString*)OBJC_INSTANCE_METHOD_IDENTIFIER]) {
         DLObjectiveCMethod *currentObjCMethod = [DLObjectiveCMethod parseMethod:symbol];
@@ -144,14 +145,16 @@ void createBlacklistedSymbols() {
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS]) {
         NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS length]];
         [_interfaceKeys addObject: symbolName];
-        [_keyToProperName setObject:symbolName forKey:symbolName];
+        [_properName setObject:symbolName forKey:symbolName];
+        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS_RO]) {
         NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS_RO length]];
         [_interfaceKeys addObject: symbolName];
-        [_keyToProperName setObject:symbolName forKey:symbolName];
+        [_properName setObject:symbolName forKey:symbolName];
+        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
@@ -161,7 +164,8 @@ void createBlacklistedSymbols() {
             return OBJC_SYMBOLS_BLACKLIST_CLASS;
         }
         
-        [_protocolKeys addObject: symbol];
+        [_protocolKeys addObject: protocolName];
+        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_PROTOCOL] forKey:protocolName];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
@@ -171,7 +175,8 @@ void createBlacklistedSymbols() {
         NSString *value = [NSString stringWithFormat:@"%@ (%@)", [splitCategory objectAtIndex:0], [splitCategory objectAtIndex:1]];
         
         [_categoryKeys addObject: key];
-        [_keyToProperName setObject:value forKey:key];
+        [_properName setObject:value forKey:key];
+        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CATEGORY] forKey:key];
         return OBJC_SYMBOLS_SUCCESS;
     }
     

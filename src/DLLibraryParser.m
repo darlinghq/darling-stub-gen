@@ -81,7 +81,7 @@ void createBlacklistedSymbols(void);
             MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
             NSString *name = symbol.name.value.string;
 
-            ObjectiveCSymbolsResults objCResult = [_objCSymbols addObjectiveCSymbol:name];
+            DLObjectiveCSymbolsResults objCResult = [_objCSymbols addObjectiveCSymbol:name];
             if (objCResult != OBJC_SYMBOLS_NOT_VALID) {
                 continue;
             }
