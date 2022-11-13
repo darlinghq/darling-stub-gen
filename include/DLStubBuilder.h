@@ -27,8 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
     DLArgumentParser *_arguments;
 }
 
--(instancetype) initWithArguments:(DLArgumentParser*)argumentParser;
--(void) generateFilesToOutputFolder: (NSURL *)outputFolder usingStubParser: (DLLibraryParser *)libraryParser;
+-(instancetype) initWithArguments:(DLArgumentParser*)argumentParser
+                       andSymbols:(DLLibraryParser*)libraryParser;
+-(void) generateFilesToOutputFolder;
+
+@property(readonly) DLLibraryParser *libraryParser;
 
 @property(readonly) NSURL *rootFolder;
 @property(readonly) NSURL *srcFolder;

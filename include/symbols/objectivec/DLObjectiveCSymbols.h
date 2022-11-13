@@ -29,16 +29,25 @@ typedef enum ObjectiveCSymbolsResults {
     OBJC_SYMBOLS_SUCCESS
 } ObjectiveCSymbolsResults;
 
+typedef enum ObjectiveCType {
+    OBJC_TYPE_CATEGORY,
+    OBJC_TYPE_INTERFACE,
+    OBJC_TYPE_PROTOCOL
+} ObjectiveCType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DLObjectiveCSymbols : NSObject
 
 @property(readonly) NSMutableDictionary<NSString*,NSString*> *filenames;
 
-@property(readonly) NSMutableSet<NSString*> *interfaces;
-@property(readonly) NSMutableSet<NSString*> *protocols;
+@property(readonly) NSMutableSet<NSString*> *categoryKeys;
+@property(readonly) NSMutableSet<NSString*> *interfaceKeys;
+@property(readonly) NSMutableSet<NSString*> *protocolKeys;
+
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCMethod*>*> *methods;
 @property(readonly) NSMutableDictionary<NSString*,NSMutableArray<DLObjectiveCIVar*>*> *variables;
+@property(readonly) NSMutableDictionary<NSString*,NSString*> *keyToProperName;
 
 @property(readonly) NSMutableArray<NSString*> *ignored;
 

@@ -54,8 +54,8 @@ int main(int argc, const char * argv[]) {
         [libraryParser parseSymbolWithMachOImage:machImage];
         [libraryParser parseCurrentMachOImage:machImage];
         
-        DLStubBuilder *stubBuilder = [[DLStubBuilder alloc] initWithArguments:argumentParser];
-        [stubBuilder generateFilesToOutputFolder: argumentParser.outputUrl usingStubParser:libraryParser];
+        DLStubBuilder *stubBuilder = [[DLStubBuilder alloc] initWithArguments:argumentParser andSymbols:libraryParser];
+        [stubBuilder generateFilesToOutputFolder];
         
         DLLogResults *logResults = [[DLLogResults alloc] initWithArguments:argumentParser];
         [logResults logResultsFromParsedLibrary:libraryParser toFolder:stubBuilder.rootFolder];

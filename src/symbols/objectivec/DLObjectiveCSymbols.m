@@ -90,10 +90,13 @@ void createBlacklistedSymbols() {
 -(instancetype)init {
     _filenames = [[NSMutableDictionary alloc] init];
     
-    _interfaces = [[NSMutableSet alloc] init];
-    _protocols = [[NSMutableSet alloc] init];
+    _categoryKeys = [[NSMutableSet alloc] init];
+    _interfaceKeys = [[NSMutableSet alloc] init];
+    _protocolKeys = [[NSMutableSet alloc] init];
+    
     _methods = [[NSMutableDictionary alloc] init];
     _variables = [[NSMutableDictionary alloc] init];
+    _keyToProperName = [[NSMutableDictionary alloc] init];
     
     _ignored = [[NSMutableArray alloc] init];
     
@@ -108,12 +111,20 @@ void createBlacklistedSymbols() {
     if ([symbol hasPrefix:(NSString*)OBJC_CLASS_METHOD_IDENTIFIER]
         || [symbol hasPrefix:(NSString*)OBJC_INSTANCE_METHOD_IDENTIFIER]) {
         DLObjectiveCMethod *currentObjCMethod = [DLObjectiveCMethod parseMethod:symbol];
-        NSString *className = currentObjCMethod.interfaceName;
+        NSString *interfaceName = currentObjCMethod.interfaceName;
         
-        [_filenames setObject:determineFileName(className) forKey:className];
+        [_filenames setObject:determineFileName(interfaceName) forKey:interfaceName];
         
-        [_interfaces addObject:className];
-        NSMutableArray<DLObjectiveCMethod*> *listOfMethods = [_methods objectForKey:className createIfNoneExist:^{ return [[NSMutableArray alloc] init]; }];
+//        // If the string contains a '(' and ')', we'll assume that it is a category
+//        if ([interfaceName containsString:@"("] && [interfaceName containsString:@")"]) {
+//            [_categoryKeys addObject:interfaceName];
+//            [_keyToProperName setObject:interfaceName forKey:interfaceName];
+//        } else {
+//            [_interfaceKeys addObject:interfaceName];
+//            [_keyToProperName setObject:interfaceName forKey:interfaceName];
+//        }
+        
+        NSMutableArray<DLObjectiveCMethod*> *listOfMethods = [_methods objectForKey:interfaceName createIfNoneExist:initalizeNSMutableArray];
         [listOfMethods addObject:currentObjCMethod];
         
         return OBJC_SYMBOLS_SUCCESS;
@@ -123,20 +134,24 @@ void createBlacklistedSymbols() {
         DLObjectiveCIVar *currentObjCVariable = [DLObjectiveCIVar parseVariable:symbol];
         NSString *className = currentObjCVariable.className;
         
-        [_interfaces addObject:className];
-        NSMutableArray<DLObjectiveCIVar*> *listOfVariables = [_variables objectForKey:className createIfNoneExist:^{ return [[NSMutableArray alloc] init]; }];
+        [_interfaceKeys addObject:className];
+        NSMutableArray<DLObjectiveCIVar*> *listOfVariables = [_variables objectForKey:className createIfNoneExist:initalizeNSMutableArray];
         [listOfVariables addObject:currentObjCVariable];
         
         return OBJC_SYMBOLS_SUCCESS;
     }
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS]) {
-        [_interfaces addObject: [symbol substringFromIndex:[OBJC_CLASS length]]];
+        NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS length]];
+        [_interfaceKeys addObject: symbolName];
+        [_keyToProperName setObject:symbolName forKey:symbolName];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS_RO]) {
-        [_interfaces addObject: [symbol substringFromIndex:[OBJC_CLASS_RO length]]];
+        NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS_RO length]];
+        [_interfaceKeys addObject: symbolName];
+        [_keyToProperName setObject:symbolName forKey:symbolName];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
@@ -146,7 +161,17 @@ void createBlacklistedSymbols() {
             return OBJC_SYMBOLS_BLACKLIST_CLASS;
         }
         
-        [_protocols addObject: symbol];
+        [_protocolKeys addObject: symbol];
+        return OBJC_SYMBOLS_SUCCESS;
+    }
+    
+    else if ([symbol hasPrefix:(NSString*)OBJC_CATEGORY]) {
+        NSArray<NSString*> *splitCategory = [[symbol substringFromIndex: [OBJC_CATEGORY length]] componentsSeparatedByString:@"_$_"];
+        NSString *key = [NSString stringWithFormat:@"%@(%@)", [splitCategory objectAtIndex:0], [splitCategory objectAtIndex:1]];
+        NSString *value = [NSString stringWithFormat:@"%@ (%@)", [splitCategory objectAtIndex:0], [splitCategory objectAtIndex:1]];
+        
+        [_categoryKeys addObject: key];
+        [_keyToProperName setObject:value forKey:key];
         return OBJC_SYMBOLS_SUCCESS;
     }
     
@@ -156,7 +181,7 @@ void createBlacklistedSymbols() {
     //                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL_INSTANCE_METHODS_OPT] || [name hasPrefix:(NSString*)OBJC_PROTOCOL_METHOD_TYPES]
     //                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFS] || [name hasPrefix:(NSString*)OBJC_CLASS_PROTOCOLS]
     //                           || [name hasPrefix:(NSString*)OBJC_LABEL_PROTOCOL]
-    //                           || [name hasPrefix:(NSString*)OBJC_CATEGORY] || [name hasPrefix:(NSString*)OBJC_CLASS_PROP_LIST]
+    //                           || [name hasPrefix:(NSString*)OBJC_CLASS_PROP_LIST]
     //                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL_CLASS_METHODS] || [name hasPrefix:(NSString*)OBJC_METACLASS_RO]
     //                           || [name hasPrefix:(NSString*)OBJC_PROTOCOL_REFERENCE]) {
     //                    [_localIgnoreSymbols addObject:name];
