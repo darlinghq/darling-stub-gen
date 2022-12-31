@@ -96,19 +96,25 @@ void* %s(void)\n\
     DLObjCStubBuilder *objCStubBuilder = [[DLObjCStubBuilder alloc] initWithArguments:_arguments andObjcSymbols:_libraryParser.objCSymbols];
     
     for (NSString *interfaceName in _libraryParser.objCSymbols.interfaceKeys) {
-        [self generateObjCFilesFromKey:interfaceName
+        [self generateObjCHeaderFromKey:interfaceName
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
+        [self generateObjCSourceFromKey:interfaceName
+                           usingSymbols:objCStubBuilder
+                             forLibrary:libraryName];
     }
     
     for (NSString *categoryName in _libraryParser.objCSymbols.categoryKeys) {
-        [self generateObjCFilesFromKey:categoryName
+        [self generateObjCHeaderFromKey:categoryName
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
+        [self generateObjCSourceFromKey:categoryName
+                           usingSymbols:objCStubBuilder
+                             forLibrary:libraryName];
     }
     
     for (NSString *protocolName in _libraryParser.objCSymbols.protocolKeys) {
-        [self generateObjCFilesFromKey:protocolName
+        [self generateObjCHeaderFromKey:protocolName
                           usingSymbols:objCStubBuilder
                             forLibrary:libraryName];
     }
@@ -117,11 +123,11 @@ void* %s(void)\n\
     [self generateMainHeaderFrom:_libraryParser usingIncludes:_mainIncludeHeader];
 }
 
--(void) generateObjCFilesFromKey:(NSString*)key
+-(void) generateObjCHeaderFromKey:(NSString*)key
                     usingSymbols:(DLObjCStubBuilder*)objCStubBuilder
-                      forLibrary:(NSString*)libraryName {
+                       forLibrary:(NSString*)libraryName {
     NSString *fileName = _libraryParser.objCSymbols.filenames[key];
-    
+    assert(fileName != nil);
     
     // Add header to main header
     [_mainIncludeHeader addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, fileName]];
@@ -135,6 +141,13 @@ void* %s(void)\n\
     NSURL *includeFilePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", fileName]];
     [includeFile writeToURL:includeFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
+}
+
+-(void) generateObjCSourceFromKey:(NSString*)key
+                    usingSymbols:(DLObjCStubBuilder*)objCStubBuilder
+                      forLibrary:(NSString*)libraryName {
+    NSString *fileName = _libraryParser.objCSymbols.filenames[key];
+    assert(fileName != nil);
     
     // Add source to cMake build list
     [_sourceFileList addObject: [NSString stringWithFormat:@"src/%@.m", fileName]];
