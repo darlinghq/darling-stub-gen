@@ -122,6 +122,7 @@ void createBlacklistedSymbols(void);
         }
     }
     
+    [_objCSymbols sortResults];
     [functionsC sortUsingSelector:@selector(compare:)];
     [_localIgnoreSymbols sortUsingSelector:@selector(compare:)];
     [_localUnknownSymbols sortUsingSelector:@selector(compare:)];

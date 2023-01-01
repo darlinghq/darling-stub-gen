@@ -22,6 +22,7 @@
 #import "DLObjectiveCSymbols.h"
 
 const NSString *OBJC_CATEGORY = @"__OBJC_$_CATEGORY_";
+const NSString *OBJC_CATEGORY_INSTANCE_METHODS = @"__OBJC_$_CATEGORY_INSTANCE_METHODS_";
 const NSString *OBJC_CLASS = @"_OBJC_CLASS_$_";
 const NSString *OBJC_CLASS_METHODS = @"__OBJC_$_CLASS_METHODS_";
 const NSString *OBJC_CLASS_PROP_LIST = @"__OBJC_$_CLASS_PROP_LIST_";
@@ -102,8 +103,7 @@ void createBlacklistedSymbols() {
     _ignored = [[NSMutableArray alloc] init];
     
     static dispatch_once_t once_initialize_blacklist;
-    dispatch_once(&once_initialize_blacklist, ^{ createBlacklistedSymbols();
-    });
+    dispatch_once(&once_initialize_blacklist, ^{ createBlacklistedSymbols(); });
     
     return self;
 }
@@ -114,16 +114,7 @@ void createBlacklistedSymbols() {
         DLObjectiveCMethod *currentObjCMethod = [DLObjectiveCMethod parseMethod:symbol];
         NSString *interfaceName = currentObjCMethod.interfaceName;
         
-        [_filenames setObject:determineFileName(interfaceName) forKey:interfaceName];
-        
-//        // If the string contains a '(' and ')', we'll assume that it is a category
-//        if ([interfaceName containsString:@"("] && [interfaceName containsString:@")"]) {
-//            [_categoryKeys addObject:interfaceName];
-//            [_keyToProperName setObject:interfaceName forKey:interfaceName];
-//        } else {
-//            [_interfaceKeys addObject:interfaceName];
-//            [_keyToProperName setObject:interfaceName forKey:interfaceName];
-//        }
+//        [_filenames setObject:determineFileName(interfaceName) forKey:interfaceName];
         
         NSMutableArray<DLObjectiveCMethod*> *listOfMethods = [_methods objectForKey:interfaceName createIfNoneExist:initalizeNSMutableArray];
         [listOfMethods addObject:currentObjCMethod];
@@ -135,7 +126,6 @@ void createBlacklistedSymbols() {
         DLObjectiveCIVar *currentObjCVariable = [DLObjectiveCIVar parseVariable:symbol];
         NSString *className = currentObjCVariable.className;
         
-        [_interfaceKeys addObject:className];
         NSMutableArray<DLObjectiveCIVar*> *listOfVariables = [_variables objectForKey:className createIfNoneExist:initalizeNSMutableArray];
         [listOfVariables addObject:currentObjCVariable];
         
@@ -144,17 +134,27 @@ void createBlacklistedSymbols() {
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS]) {
         NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS length]];
-        [_interfaceKeys addObject: symbolName];
-        [_properName setObject:symbolName forKey:symbolName];
-        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
+        if (![_interfaceKeys containsObject:symbolName]) {
+            [_interfaceKeys addObject: symbolName];
+            
+            [_filenames setObject:symbolName forKey:symbolName];
+            [_properName setObject:symbolName forKey:symbolName];
+            [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
+        }
+
         return OBJC_SYMBOLS_SUCCESS;
     }
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CLASS_RO]) {
         NSString *symbolName = [symbol substringFromIndex:[OBJC_CLASS_RO length]];
-        [_interfaceKeys addObject: symbolName];
-        [_properName setObject:symbolName forKey:symbolName];
-        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
+        if (![_interfaceKeys containsObject:symbolName]) {
+            [_interfaceKeys addObject: symbolName];
+            
+            [_filenames setObject:symbolName forKey:symbolName];
+            [_properName setObject:symbolName forKey:symbolName];
+            [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CLASS] forKey:symbolName];
+        }
+
         return OBJC_SYMBOLS_SUCCESS;
     }
     
@@ -165,18 +165,50 @@ void createBlacklistedSymbols() {
         }
         
         [_protocolKeys addObject: protocolName];
+        
+        [_filenames setObject:protocolName forKey:protocolName];
+        [_properName setObject:protocolName forKey:protocolName];
         [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_PROTOCOL] forKey:protocolName];
+        return OBJC_SYMBOLS_SUCCESS;
+    }
+    
+    else if ([symbol hasPrefix:(NSString*)OBJC_CATEGORY_INSTANCE_METHODS]) {
+        NSArray<NSString*> *splitCategory = [[symbol substringFromIndex: [OBJC_CATEGORY_INSTANCE_METHODS length]] componentsSeparatedByString:@"_$_"];
+        NSString *className = [splitCategory objectAtIndex:0];
+        NSString *categoryName = [splitCategory objectAtIndex:1];
+        
+        NSString *key = [NSString stringWithFormat:@"%@(%@)", className, categoryName];
+        if (![_categoryKeys containsObject:key]) {
+            NSString *properName = [NSString stringWithFormat:@"%@ (%@)", className, categoryName];
+            NSString *fileName = [NSString stringWithFormat:@"%@+%@", className, categoryName];
+            
+            [_categoryKeys addObject: key];
+            
+            [_filenames setObject:fileName forKey:key];
+            [_properName setObject:properName forKey:key];
+            [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CATEGORY] forKey:key];
+        }
+        
         return OBJC_SYMBOLS_SUCCESS;
     }
     
     else if ([symbol hasPrefix:(NSString*)OBJC_CATEGORY]) {
         NSArray<NSString*> *splitCategory = [[symbol substringFromIndex: [OBJC_CATEGORY length]] componentsSeparatedByString:@"_$_"];
-        NSString *key = [NSString stringWithFormat:@"%@(%@)", [splitCategory objectAtIndex:0], [splitCategory objectAtIndex:1]];
-        NSString *value = [NSString stringWithFormat:@"%@ (%@)", [splitCategory objectAtIndex:0], [splitCategory objectAtIndex:1]];
+        NSString *className = [splitCategory objectAtIndex:0];
+        NSString *categoryName = [splitCategory objectAtIndex:1];
         
-        [_categoryKeys addObject: key];
-        [_properName setObject:value forKey:key];
-        [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CATEGORY] forKey:key];
+        NSString *key = [NSString stringWithFormat:@"%@(%@)", className, categoryName];
+        if (![_categoryKeys containsObject:key]) {
+            NSString *properName = [NSString stringWithFormat:@"%@ (%@)", className, categoryName];
+            NSString *fileName = [NSString stringWithFormat:@"%@+%@", className, categoryName];
+            
+            [_categoryKeys addObject: key];
+            
+            [_filenames setObject:fileName forKey:key];
+            [_properName setObject:properName forKey:key];
+            [_type setObject:[NSNumber numberWithUnsignedInteger: OBJC_TYPE_CATEGORY] forKey:key];
+        }
+
         return OBJC_SYMBOLS_SUCCESS;
     }
     

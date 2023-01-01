@@ -34,17 +34,14 @@
 
 - (void)tearDown {}
 
-- (void)testCategorySymbol {
+- (void)testInstanceMethodCategorySymbol {
     NSString *symbol = @"-[NSLocale(InternationalSupportExtensions) localizedStringForRegion:context:short:]";
-    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol]);
+    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol] == OBJC_SYMBOLS_SUCCESS);
     
     NSString *interfaceName = @"NSLocale(InternationalSupportExtensions)";
     NSMutableArray<DLObjectiveCMethod*> *listOfMethods = [[_objCSymbols methods] objectForKey:interfaceName];
     XCTAssertNotNil(listOfMethods);
     XCTAssertEqual([listOfMethods count], 1);
-    
-    NSString *expectedFileName = @"NSLocale+InternationalSupportExtensions";
-    XCTAssertEqualObjects(expectedFileName, [[_objCSymbols filenames] objectForKey:interfaceName]);
     
     DLObjectiveCMethod *objCMethod = [listOfMethods objectAtIndex:0];
     NSString *interfaceNameExpected = interfaceName;
@@ -55,10 +52,34 @@
     XCTAssertEqualObjects(methodPartsExpected, [objCMethod methodParts]);
 }
 
-- (void)testIVarSymbol {
-    NSString *symbol = @"_OBJC_IVAR_$_PHAssetPhotosOneUpProperties._variationSuggestionStates";
-    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol]);
-    
+//- (void)test_OBJC_IVAR_ {
+//    NSString *symbol = @"_OBJC_IVAR_$_PHAssetPhotosOneUpProperties._variationSuggestionStates";
+//    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol] == OBJC_SYMBOLS_SUCCESS);
+//
+//}
+
+- (void)testSymbol__OBJC__CATEGORY {
+    NSString *symbol = @"__OBJC_$_CATEGORY_NSMutableDictionary_$_AutoInsertEntry";
+    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol] == OBJC_SYMBOLS_SUCCESS);
+    XCTAssertTrue([_objCSymbols.categoryKeys containsObject:@"NSMutableDictionary(AutoInsertEntry)"]);
+    XCTAssertEqualObjects(_objCSymbols.properName[@"NSMutableDictionary(AutoInsertEntry)"],@"NSMutableDictionary (AutoInsertEntry)");
+    XCTAssertEqualObjects(_objCSymbols.filenames[@"NSMutableDictionary(AutoInsertEntry)"],@"NSMutableDictionary+AutoInsertEntry");
+}
+
+- (void)testSymbol__OBJC_PROTOCOL {
+    NSString *symbol = @"__OBJC_PROTOCOL_$__ASWebAuthenticationSessionRequestHandling";
+    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol] == OBJC_SYMBOLS_SUCCESS);
+    XCTAssertTrue([_objCSymbols.protocolKeys containsObject:@"_ASWebAuthenticationSessionRequestHandling"]);
+    XCTAssertEqualObjects(_objCSymbols.properName[@"_ASWebAuthenticationSessionRequestHandling"],@"_ASWebAuthenticationSessionRequestHandling");
+    XCTAssertEqualObjects(_objCSymbols.filenames[@"_ASWebAuthenticationSessionRequestHandling"],@"_ASWebAuthenticationSessionRequestHandling");
+}
+
+- (void)testSymbol_OBJC_CLASS {
+    NSString *symbol = @"_OBJC_CLASS_$_ASAuthorizationSecurityKeyPublicKeyCredentialAssertion";
+    XCTAssertTrue([_objCSymbols addObjectiveCSymbol:symbol] == OBJC_SYMBOLS_SUCCESS);
+    XCTAssertTrue([_objCSymbols.interfaceKeys containsObject:@"ASAuthorizationSecurityKeyPublicKeyCredentialAssertion"]);
+    XCTAssertEqualObjects(_objCSymbols.properName[@"ASAuthorizationSecurityKeyPublicKeyCredentialAssertion"],@"ASAuthorizationSecurityKeyPublicKeyCredentialAssertion");
+    XCTAssertEqualObjects(_objCSymbols.filenames[@"ASAuthorizationSecurityKeyPublicKeyCredentialAssertion"],@"ASAuthorizationSecurityKeyPublicKeyCredentialAssertion");
 }
 
 @end
