@@ -87,7 +87,7 @@ void* %s(void)\n\
 
 
 -(void) generateFilesToOutputFolder {
-    NSURL *outputFolder = _arguments.outputUrl;
+    NSURL *outputFolder = [NSURL fileURLWithPath:_arguments.outputPath];
     NSString *libraryName = _libraryParser.mainImage.imageName;
     _mainIncludeHeader = [[NSMutableArray alloc] init];
     _sourceFileList = [[NSMutableArray alloc] init];

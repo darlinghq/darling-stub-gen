@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
             [dlError terminateProgram];
         }
         
-        MKMemoryMap *memoryMap = [MKMemoryMap memoryMapWithContentsOfFile: argumentParser.inputUrl error:nil];
+        MKMemoryMap *memoryMap = [MKMemoryMap memoryMapWithContentsOfFile:[NSURL fileURLWithPath:argumentParser.inputFile] error:nil];
 //        if (error != nil) {
 //            [error terminateProgram];
 //        }
