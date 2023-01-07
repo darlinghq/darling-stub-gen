@@ -10,26 +10,33 @@
 		E9372EAF27B0A6FF00C5298C /* MachOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); };
 		E9372EB027B0A6FF00C5298C /* MachOKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9372E9D27B0A56B00C5298C /* MachOKit.framework */; platformFilters = (ios, macos, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E9625058291829280034FEF0 /* DLObjectiveCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */; };
-		E9625059291829290034FEF0 /* DLObjectiveCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */; };
 		E9679B862772DBBA00215D6C /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
 		E9679BAB27751A5900215D6C /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
 		E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
 		E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
 		E970D283291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
-		E970D284291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
 		E970D28B29185A5D0082AD77 /* ObjectiveCSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D28A29185A5D0082AD77 /* ObjectiveCSymbolTest.m */; };
 		E970D29F291C1CEB0082AD77 /* DLObjCStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */; };
 		E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */; };
-		E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
-		E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
-		E976C61328E1204500C972AF /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
-		E976C61428E1204500C972AF /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
-		E976C61528E1204500C972AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
-		E976C61628E1204500C972AF /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
-		E976C61728E1204500C972AF /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
-		E976C61828E1204500C972AF /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
-		E976C61928E1204500C972AF /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
-		E976C61A28E1204500C972AF /* DLError.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F81AD228C8F5CF00B07345 /* DLError.m */; };
+		E9A3C4C32960FD5B00D2F583 /* NSMutableDictionary+AutoInsertEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D282291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m */; };
+		E9A3C4C42960FD5B00D2F583 /* DLObjCStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */; };
+		E9A3C4C52960FD5B00D2F583 /* DLObjectiveCMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9486B277193E2000D52A2 /* DLObjectiveCMethod.m */; };
+		E9A3C4C62960FD5B00D2F583 /* DLObjectiveCIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679B852772DBBA00215D6C /* DLObjectiveCIVar.m */; };
+		E9A3C4C72960FD5B00D2F583 /* DLObjectiveCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9625057291829280034FEF0 /* DLObjectiveCSymbols.m */; };
+		E9A3C4C82960FD5B00D2F583 /* DLSwiftSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C6F85328DCA20F00F1ED94 /* DLSwiftSymbols.m */; };
+		E9A3C4C92960FD5B00D2F583 /* DLMainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BB02776D51D00215D6C /* DLMainImage.m */; };
+		E9A3C4CA2960FD5B00D2F583 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
+		E9A3C4CB2960FD5B00D2F583 /* DLArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAA27751A5900215D6C /* DLArgumentParser.m */; };
+		E9A3C4CC2960FD5B00D2F583 /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
+		E9A3C4CD2960FD5B00D2F583 /* DLLogResults.m in Sources */ = {isa = PBXBuildFile; fileRef = E9679BAD277670DC00215D6C /* DLLogResults.m */; };
+		E9A3C4CE2960FD5B00D2F583 /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
+		E9A3C4CF2960FD5B00D2F583 /* DLError.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F81AD228C8F5CF00B07345 /* DLError.m */; };
+		E9A3C4D729634D7A00D2F583 /* DLCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4D629634D7A00D2F583 /* DLCSymbols.m */; };
+		E9A3C4D829634D7A00D2F583 /* DLCSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4D629634D7A00D2F583 /* DLCSymbols.m */; };
+		E9A3C4DC29634E8D00D2F583 /* DLCFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4DB29634E8D00D2F583 /* DLCFunction.m */; };
+		E9A3C4DD29634E8D00D2F583 /* DLCFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4DB29634E8D00D2F583 /* DLCFunction.m */; };
+		E9A3C4E0296373CE00D2F583 /* DLCVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4DF296373CE00D2F583 /* DLCVariable.m */; };
+		E9A3C4E1296373CE00D2F583 /* DLCVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3C4DF296373CE00D2F583 /* DLCVariable.m */; };
 		E9B947C7276E6757000D52A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B947C6276E6757000D52A2 /* main.m */; };
 		E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B94841276EF75C000D52A2 /* DLLibraryParser.m */; };
 		E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B9484727702948000D52A2 /* DLStubBuilder.m */; };
@@ -59,6 +66,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = D0A3BB741A68EB9D00D663A0;
 			remoteInfo = libMachO;
+		};
+		E9A3C4C02960FCA800D2F583 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9B947BB276E6757000D52A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9B947C2276E6757000D52A2;
+			remoteInfo = "darling-stub-gen";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -104,6 +118,12 @@
 		E970D29E291C1CEB0082AD77 /* DLObjCStubBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLObjCStubBuilder.m; sourceTree = "<group>"; };
 		E976C5FE28E1197100C972AF /* SwiftSymbolTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftSymbolTest.m; sourceTree = "<group>"; };
 		E976C60928E11CAC00C972AF /* darling-stub-gen-test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "darling-stub-gen-test.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9A3C4D529634D7A00D2F583 /* DLCSymbols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLCSymbols.h; sourceTree = "<group>"; };
+		E9A3C4D629634D7A00D2F583 /* DLCSymbols.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLCSymbols.m; sourceTree = "<group>"; };
+		E9A3C4DA29634E8D00D2F583 /* DLCFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLCFunction.h; sourceTree = "<group>"; };
+		E9A3C4DB29634E8D00D2F583 /* DLCFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLCFunction.m; sourceTree = "<group>"; };
+		E9A3C4DE296373CE00D2F583 /* DLCVariable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLCVariable.h; sourceTree = "<group>"; };
+		E9A3C4DF296373CE00D2F583 /* DLCVariable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DLCVariable.m; sourceTree = "<group>"; };
 		E9B947C3276E6757000D52A2 /* darling-stub-gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "darling-stub-gen"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B947C6276E6757000D52A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E9B947DF276E6AAB000D52A2 /* darling-stub-gen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "darling-stub-gen.xcodeproj"; sourceTree = "<group>"; };
@@ -157,6 +177,7 @@
 		E9237FD128B1CE7E007F9CEB /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3C4D429634D4900D2F583 /* c */,
 				E9625053291827930034FEF0 /* objectivec */,
 				E9C6F85128DCA17D00F1ED94 /* swift */,
 				E9679BB02776D51D00215D6C /* DLMainImage.m */,
@@ -235,6 +256,26 @@
 			path = test;
 			sourceTree = "<group>";
 		};
+		E9A3C4D429634D4900D2F583 /* c */ = {
+			isa = PBXGroup;
+			children = (
+				E9A3C4D629634D7A00D2F583 /* DLCSymbols.m */,
+				E9A3C4DB29634E8D00D2F583 /* DLCFunction.m */,
+				E9A3C4DF296373CE00D2F583 /* DLCVariable.m */,
+			);
+			path = c;
+			sourceTree = "<group>";
+		};
+		E9A3C4D929634DBF00D2F583 /* c */ = {
+			isa = PBXGroup;
+			children = (
+				E9A3C4D529634D7A00D2F583 /* DLCSymbols.h */,
+				E9A3C4DA29634E8D00D2F583 /* DLCFunction.h */,
+				E9A3C4DE296373CE00D2F583 /* DLCVariable.h */,
+			);
+			path = c;
+			sourceTree = "<group>";
+		};
 		E9B947BA276E6757000D52A2 = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +328,7 @@
 		E9B948692771938F000D52A2 /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3C4D929634DBF00D2F583 /* c */,
 				E9625054291827F20034FEF0 /* objectivec */,
 				E9C6F84D28DCA17100F1ED94 /* swift */,
 				E9679BAF2776D51D00215D6C /* DLMainImage.h */,
@@ -324,6 +366,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E9A3C4C12960FCA800D2F583 /* PBXTargetDependency */,
 			);
 			name = "darling-stub-gen-test";
 			productName = "darling-stub-gen-test";
@@ -433,20 +476,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E976C61128E1204500C972AF /* DLSwiftSymbols.m in Sources */,
-				E976C61228E1204500C972AF /* DLObjectiveCMethod.m in Sources */,
-				E976C61328E1204500C972AF /* DLObjectiveCIVar.m in Sources */,
-				E976C61428E1204500C972AF /* DLMainImage.m in Sources */,
-				E976C61528E1204500C972AF /* main.m in Sources */,
-				E976C61628E1204500C972AF /* DLArgumentParser.m in Sources */,
-				E976C61728E1204500C972AF /* DLLibraryParser.m in Sources */,
-				E9625059291829290034FEF0 /* DLObjectiveCSymbols.m in Sources */,
-				E976C61828E1204500C972AF /* DLLogResults.m in Sources */,
+				E9A3C4C32960FD5B00D2F583 /* NSMutableDictionary+AutoInsertEntry.m in Sources */,
+				E9A3C4C42960FD5B00D2F583 /* DLObjCStubBuilder.m in Sources */,
+				E9A3C4C52960FD5B00D2F583 /* DLObjectiveCMethod.m in Sources */,
+				E9A3C4D829634D7A00D2F583 /* DLCSymbols.m in Sources */,
+				E9A3C4C62960FD5B00D2F583 /* DLObjectiveCIVar.m in Sources */,
+				E9A3C4C72960FD5B00D2F583 /* DLObjectiveCSymbols.m in Sources */,
+				E9A3C4C82960FD5B00D2F583 /* DLSwiftSymbols.m in Sources */,
+				E9A3C4C92960FD5B00D2F583 /* DLMainImage.m in Sources */,
+				E9A3C4CA2960FD5B00D2F583 /* main.m in Sources */,
+				E9A3C4CB2960FD5B00D2F583 /* DLArgumentParser.m in Sources */,
+				E9A3C4CC2960FD5B00D2F583 /* DLLibraryParser.m in Sources */,
+				E9A3C4CD2960FD5B00D2F583 /* DLLogResults.m in Sources */,
+				E9A3C4CE2960FD5B00D2F583 /* DLStubBuilder.m in Sources */,
+				E9A3C4CF2960FD5B00D2F583 /* DLError.m in Sources */,
+				E9A3C4DD29634E8D00D2F583 /* DLCFunction.m in Sources */,
 				E970D28B29185A5D0082AD77 /* ObjectiveCSymbolTest.m in Sources */,
-				E976C61928E1204500C972AF /* DLStubBuilder.m in Sources */,
-				E976C61A28E1204500C972AF /* DLError.m in Sources */,
 				E976C61028E11CBE00C972AF /* SwiftSymbolTest.m in Sources */,
-				E970D284291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */,
+				E9A3C4E1296373CE00D2F583 /* DLCVariable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9679BB12776D51D00215D6C /* DLMainImage.m in Sources */,
+				E9A3C4E0296373CE00D2F583 /* DLCVariable.m in Sources */,
 				E970D283291853280082AD77 /* NSMutableDictionary+AutoInsertEntry.m in Sources */,
 				E9625058291829280034FEF0 /* DLObjectiveCSymbols.m in Sources */,
 				E9B94842276EF75C000D52A2 /* DLLibraryParser.m in Sources */,
@@ -462,15 +510,25 @@
 				E9C6F85428DCA20F00F1ED94 /* DLSwiftSymbols.m in Sources */,
 				E970D29F291C1CEB0082AD77 /* DLObjCStubBuilder.m in Sources */,
 				E9F81AD328C8F5CF00B07345 /* DLError.m in Sources */,
+				E9A3C4DC29634E8D00D2F583 /* DLCFunction.m in Sources */,
 				E9679BAE277670DC00215D6C /* DLLogResults.m in Sources */,
 				E9B9484827702948000D52A2 /* DLStubBuilder.m in Sources */,
 				E9B9486C277193E2000D52A2 /* DLObjectiveCMethod.m in Sources */,
+				E9A3C4D729634D7A00D2F583 /* DLCSymbols.m in Sources */,
 				E9679B862772DBBA00215D6C /* DLObjectiveCIVar.m in Sources */,
 				E9B947C7276E6757000D52A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9A3C4C12960FCA800D2F583 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9B947C2276E6757000D52A2 /* darling-stub-gen */;
+			targetProxy = E9A3C4C02960FCA800D2F583 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E976C60E28E11CAC00C972AF /* Debug */ = {

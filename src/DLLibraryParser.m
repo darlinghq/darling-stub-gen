@@ -23,7 +23,6 @@
 
 const NSString *CPP_SYMBOL_IDENTIFIER = @"__Z";
 
-bool isValidCMethod(NSString *symbol);
 void createBlacklistedSymbols(void);
 
 @implementation DLLibraryParser
@@ -32,9 +31,9 @@ void createBlacklistedSymbols(void);
     _arguments = arugmentParser;
     dependiciesList = [[NSMutableArray alloc] init];
     
+    _cSymbols = [[DLCSymbols alloc] init];
     _objCSymbols = [[DLObjectiveCSymbols alloc] init];
     
-    functionsC = [[NSMutableArray alloc] init];
     _functionCPP =  [[NSMutableArray alloc] init];
     
     _localIgnoreSymbols = [[NSMutableArray alloc] init];
@@ -85,19 +84,23 @@ void createBlacklistedSymbols(void);
             if (objCResult != OBJC_SYMBOLS_NOT_VALID) {
                 continue;
             }
-
+            
             // For symbols we don't care about, we will store them in ignoreSymbols
             if ([name containsString:@"block_invoke"] || [name containsString:@"___block_literal_global"]
                        || [name containsString:@"___Block_byref_object_dispose_"] || [name containsString:@"___Block_byref_object_copy_"]
                        || [name containsString:@"GCC_except_table"] || [name containsString:@"___copy_helper_block"]
                        || [name containsString:@"___destroy_helper_block"]) {
                 [_localIgnoreSymbols addObject:name];
-
-            } else if ([name hasPrefix:(NSString*)CPP_SYMBOL_IDENTIFIER]) {
+                continue;
+            }
+            
+            DLCSymbolsResults cResult = [_cSymbols addCSymbol:symbol isExtern:NO];
+            if (cResult != C_SYMBOLS_NOT_VALID) {
+                continue;
+            }
+            
+            if ([name hasPrefix:(NSString*)CPP_SYMBOL_IDENTIFIER]) {
                 [_functionCPP addObject:name];
-
-            } else if (isValidCMethod(name)) {
-                [functionsC addObject:name];
 
             // If we are not sure what the symbol is suppose to be, we will store them in the unknownSymbols
             } else {
@@ -110,7 +113,13 @@ void createBlacklistedSymbols(void);
             MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
             NSString *name = symbol.name.value.string;
             
+            DLCSymbolsResults cResult = [_cSymbols addCSymbol:symbol isExtern:YES];
+            if (cResult != C_SYMBOLS_NOT_VALID) {
+                continue;
+            }
+
             [_externalSymbols addObject:name];
+
         }
         
         NSRange undefinedSymbols = symbolTable.undefinedSymbols;
@@ -123,7 +132,7 @@ void createBlacklistedSymbols(void);
     }
     
     [_objCSymbols sortResults];
-    [functionsC sortUsingSelector:@selector(compare:)];
+    [_cSymbols sortResults];
     [_localIgnoreSymbols sortUsingSelector:@selector(compare:)];
     [_localUnknownSymbols sortUsingSelector:@selector(compare:)];
     [_externalSymbols sortUsingSelector:@selector(compare:)];
@@ -132,21 +141,3 @@ void createBlacklistedSymbols(void);
 
 @end
 
-bool isValidCMethod(NSString *symbol) {
-    const char* utf8String = [symbol UTF8String];
-    
-    for (int i=0; i < symbol.length; i++) {
-        char curChar = utf8String[i];
-        
-        bool isNumber = '0' <= curChar && curChar <= '9';
-        bool isLowerCase = 'a' <= curChar && curChar <= 'z';
-        bool isUpperCase = 'A' <= curChar && curChar <= 'Z';
-        bool isUnderline = curChar == '_';
-        
-        if (!isNumber && !isLowerCase && !isUpperCase & !isUnderline) {
-            return false;
-        }
-    }
-    
-    return true;
-}

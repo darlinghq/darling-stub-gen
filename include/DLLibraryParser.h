@@ -22,6 +22,7 @@
 
 #import "DLArgumentParser.h"
 #import "symbols/DLMainImage.h"
+#import "symbols/c/DLCSymbols.h"
 #import "symbols/objectivec/DLObjectiveCSymbols.h"
 
 
@@ -31,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
     DLArgumentParser *_arguments;
     
     NSMutableArray *dependiciesList;
-    NSMutableArray<NSString*> *functionsC;
 }
 
 @property(readonly) DLMainImage* mainImage;
 
 @property(readonly) DLObjectiveCSymbols *objCSymbols;
+@property(readonly) DLCSymbols *cSymbols;
 
 @property(readonly) NSMutableArray<NSString*> *localUnknownSymbols;
 @property(readonly) NSMutableArray<NSString*> *localIgnoreSymbols;

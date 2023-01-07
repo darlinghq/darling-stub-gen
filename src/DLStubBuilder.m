@@ -119,8 +119,9 @@ void* %s(void)\n\
                             forLibrary:libraryName];
     }
     
-    [self generateCMakeListsFrom:_libraryParser usingSources:_sourceFileList];
     [self generateMainHeaderFrom:_libraryParser usingIncludes:_mainIncludeHeader];
+    [self generateMainSourceFrom:_libraryParser addSourceIfCreated:_sourceFileList];
+    [self generateCMakeListsFrom:_libraryParser usingSources:_sourceFileList];
 }
 
 -(void) generateObjCHeaderFromKey:(NSString*)key
@@ -130,7 +131,7 @@ void* %s(void)\n\
     assert(fileName != nil);
     
     // Add header to main header
-    [_mainIncludeHeader addObject: [NSString stringWithFormat:@"#import <%@/%@.h>\n", libraryName, fileName]];
+    [_mainIncludeHeader addObject: [NSString stringWithFormat:@"#import <%@/%@.h>", libraryName, fileName]];
     
     // Generate the header file
     NSMutableString *includeFile = [[NSMutableString alloc] initWithString:@""];
@@ -180,16 +181,15 @@ void* %s(void)\n\
     [cMakeLists appendFormat:@"set(DYLIB_COMPAT_VERSION \"%@\")\n",libraryParser.mainImage.compabilityVersion];
     [cMakeLists appendFormat:@"set(DYLIB_CURRENT_VERSION \"%@\")\n\n",libraryParser.mainImage.currentVersion];
     
-    [cMakeLists appendString:@"set(FRAMEWORK_VERSION \"A\")\n\n"];
-    
-    [cMakeLists appendFormat:@"generate_sdk_framework(%@\n", libraryName];
-    if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\tPRIVATE\n"]; }
-    [cMakeLists appendString:@"\tVERSION ${FRAMEWORK_VERSION}\n"];
-    [cMakeLists appendFormat:@"\tHEADER \"include/%@\"\n", libraryName];
-    [cMakeLists appendString:@")\n\n"];
-    
-    [cMakeLists appendString:@"\n"];
     if (imageType == ImageTypeFramework) {
+        [cMakeLists appendString:@"set(FRAMEWORK_VERSION \"A\")\n\n"];
+        
+        [cMakeLists appendFormat:@"generate_sdk_framework(%@\n", libraryName];
+        if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\tPRIVATE\n"]; }
+        [cMakeLists appendString:@"\tVERSION ${FRAMEWORK_VERSION}\n"];
+        [cMakeLists appendFormat:@"\tHEADER \"include/%@\"\n", libraryName];
+        [cMakeLists appendString:@")\n\n\n"];
+        
         [cMakeLists appendFormat:@"add_framework(%@\n",libraryName];
         if (frameworkType == FrameworkTypePrivate) { [cMakeLists appendString:@"\tPRIVATE\n"]; }
         [cMakeLists appendString:@"\tFAT\n"];
@@ -229,7 +229,7 @@ void* %s(void)\n\
         for (NSString *sourceFile in listOfSourceFiles) {
             [cMakeLists appendFormat:@"\t%@\n", sourceFile];
         }
-        [cMakeLists appendString:@")\n"];
+        [cMakeLists appendString:@")\n\n"];
         
         [cMakeLists appendFormat:@"make_fat(%@)\n",libraryName];
         [cMakeLists appendFormat:@"target_link_libraries(%@ %@)\n",libraryName,@"system"];
@@ -239,6 +239,55 @@ void* %s(void)\n\
     [cMakeLists writeToURL:cMakeListsPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+-(void) generateMainSourceFrom:(DLLibraryParser*)libraryParser
+                  addSourceIfCreated:(NSMutableArray<NSString*>*)listOfSourceFiles {
+    bool thereAreCVariables = [_libraryParser.cSymbols.variables count] > 0;
+    bool thereAreCFunctions = [_libraryParser.cSymbols.functions count] > 0;
+    
+    // Only create the file if there are any C variables/functions.
+    if (thereAreCVariables || thereAreCFunctions) {
+        NSString *libraryName = libraryParser.mainImage.imageName;
+        
+        NSMutableString *mainSource = [[NSMutableString alloc] init];
+        NSString *fileName = [NSString stringWithFormat:@"%@.m", libraryName];
+        NSURL *mainSourcePath = [_srcFolder URLByAppendingPathComponent: fileName];
+        
+        [self appendCopyRightHeaderTo: mainSource];
+        [mainSource appendString:@"\n"];
+        
+        [mainSource appendFormat:@"#include <%@/%@.h>\n", libraryName, libraryName];
+        [mainSource appendString:@"#include <stdlib.h>\n"];
+        [mainSource appendString:@"#include <stdio.h>\n\n"];
+        
+        [mainSource appendString:@"__attribute__((constructor))\n"];
+        [mainSource appendString:@"static void initme(void) {\n"];
+        [mainSource appendString:@"    verbose = getenv(\"STUB_VERBOSE\") != NULL;\n"];
+        [mainSource appendString:@"}\n\n"];
+        
+        if (thereAreCVariables) {
+            [mainSource appendString:@"\n"];
+            for (DLCVariable* cVariable in _libraryParser.cSymbols.variables) {
+                NSString *cVariableString = [cVariable generateStubVariableSource];
+                if (cVariableString != nil) {
+                    [mainSource appendFormat:@"%@;\n", cVariableString];
+                }
+            }
+        }
+        
+        if (thereAreCFunctions) {
+            [mainSource appendString:@"\n"];
+            for (DLCFunction* cFunction in _libraryParser.cSymbols.functions) {
+                [mainSource appendFormat:@"%@ {\n", [cFunction generateStubMethod]];
+                [mainSource appendFormat:@"    if (verbose) puts(\"STUB: %@ called\");\n", cFunction.functionName];
+                [mainSource appendString:@"    return NULL;\n"];
+                [mainSource appendString:@")\n\n"];
+            }
+        }
+        
+        [listOfSourceFiles addObject:[NSString stringWithFormat:@"src/%@", fileName]];
+        [mainSource writeToURL:mainSourcePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
+}
 
 -(void) generateMainHeaderFrom:(DLLibraryParser*)libraryParser
                  usingIncludes:(NSMutableArray<NSString*>*)mainHeaderIncludes {
@@ -249,12 +298,33 @@ void* %s(void)\n\
     NSURL *mainIncludePath = [_includeFolder URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.h", libraryName]];
     
     [self appendCopyRightHeaderTo: mainInclude];
-    [mainInclude appendFormat:@"#ifndef _%@_H_\n#define _%@_H_\n\n#import <Foundation/Foundation.h>\n\n", upperLibraryName, upperLibraryName];
+    [mainInclude appendFormat:@"#ifndef _%@_H_\n#define _%@_H_\n\n#import <Foundation/Foundation.h>", upperLibraryName, upperLibraryName];
     
-    [mainHeaderIncludes sortUsingSelector:@selector(compare:)];
-    for (NSString *headerInclude in mainHeaderIncludes) {
-        [mainInclude appendString:headerInclude];
+    if ([mainHeaderIncludes count] > 0) {
+        [mainInclude appendString:@"\n\n"];
+        [mainHeaderIncludes sortUsingSelector:@selector(compare:)];
+        for (NSString *headerInclude in mainHeaderIncludes) {
+            [mainInclude appendFormat:@"%@\n", headerInclude];
+        }
     }
+    
+    if ([_libraryParser.cSymbols.functions count] > 0) {
+        [mainInclude appendString:@"\n\n"];
+        for (DLCFunction* cFunction in _libraryParser.cSymbols.functions) {
+            [mainInclude appendFormat:@"%@;\n", [cFunction generateStubMethod]];
+        }
+    }
+    
+    if ([_libraryParser.cSymbols.variables count] > 0) {
+        [mainInclude appendString:@"\n\n"];
+        for (DLCVariable* cVariable in _libraryParser.cSymbols.variables) {
+            NSString *cVariableString = [cVariable generateStubVariableHeader];
+            if (cVariableString != nil) {
+                [mainInclude appendFormat:@"%@;\n", cVariableString];
+            }
+        }
+    }
+
     
     [mainInclude appendString:@"\n#endif\n\n"];
     [mainInclude writeToURL:mainIncludePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
