@@ -683,6 +683,10 @@
 					include,
 					../include,
 				);
+				OTHER_LDFLAGS = (
+					"-rpath",
+					"@executable_path/",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -695,6 +699,10 @@
 				HEADER_SEARCH_PATHS = (
 					include,
 					../include,
+				);
+				OTHER_LDFLAGS = (
+					"-rpath",
+					"@executable_path/",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
