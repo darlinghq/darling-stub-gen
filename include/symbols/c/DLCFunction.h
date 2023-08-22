@@ -24,8 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DLCFunction : NSObject
 
 @property(readonly) NSString *functionName;
+@property(readonly) BOOL isExtern;
 
-+(instancetype)parseMethod:(NSString *)method;
++(instancetype)parseMethod:(NSString *)method isExtern:(BOOL)isExtern;
 -(NSString*)generateStubMethod;
 
 @end

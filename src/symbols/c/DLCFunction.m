@@ -21,13 +21,14 @@
 
 @implementation DLCFunction
 
-+(instancetype)parseMethod:(NSString*)method {
-    return [[DLCFunction alloc] initWithMethodName:method];
++(instancetype)parseMethod:(NSString*)method isExtern:(BOOL)isExtern {
+    return [[DLCFunction alloc] initWithMethodName:method isExtern:isExtern];
 }
 
--(instancetype)initWithMethodName:(NSString*)methodName {
+-(instancetype)initWithMethodName:(NSString*)methodName isExtern:(BOOL)isExtern {
     if ([methodName hasPrefix:@"_"]) { methodName = [methodName substringFromIndex:1]; }
     _functionName = methodName;
+    _isExtern = isExtern;
     return self;
 }
 

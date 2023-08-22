@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DLCVariable : NSObject
 
+@property(readonly) BOOL isExtern;
+
 +(instancetype)parseVariable:(NSString *)method
                   isConstant:(BOOL)isConstant
                     isStatic:(BOOL)isStatic;

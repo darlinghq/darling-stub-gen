@@ -66,7 +66,11 @@
         return nil;
     }
     
-    return [NSString stringWithFormat:@"extern %@", [self generateStubVariable]];
+    return [self generateStubVariable];
+}
+
+-(BOOL)isExtern {
+    return !_static;
 }
 
 @end
