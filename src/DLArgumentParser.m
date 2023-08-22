@@ -30,7 +30,12 @@
     }
     
     _inputFile = [NSString stringWithUTF8String:argv[1]];
-    _outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
+    
+    if (argc > 2) {
+        _outputPath = [NSString stringWithUTF8String:argv[2]];
+    } else {
+        _outputPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
+    }
     
     _logSymbols = true;
     _useMethodSignature = true;
