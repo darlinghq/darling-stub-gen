@@ -259,6 +259,7 @@ void* %s(void)\n\
         [mainSource appendString:@"#include <stdlib.h>\n"];
         [mainSource appendString:@"#include <stdio.h>\n\n"];
         
+        [mainSource appendString:@"static int verbose = 0;\n"];
         [mainSource appendString:@"__attribute__((constructor))\n"];
         [mainSource appendString:@"static void initme(void) {\n"];
         [mainSource appendString:@"    verbose = getenv(\"STUB_VERBOSE\") != NULL;\n"];
@@ -267,6 +268,10 @@ void* %s(void)\n\
         if (thereAreCVariables) {
             [mainSource appendString:@"\n"];
             for (DLCVariable* cVariable in _libraryParser.cSymbols.variables) {
+                if (!cVariable.isExtern) {
+                    // we only care about external variables when generating stubs
+                    continue;
+                }
                 NSString *cVariableString = [cVariable generateStubVariableSource];
                 if (cVariableString != nil) {
                     [mainSource appendFormat:@"%@;\n", cVariableString];
@@ -277,10 +282,14 @@ void* %s(void)\n\
         if (thereAreCFunctions) {
             [mainSource appendString:@"\n"];
             for (DLCFunction* cFunction in _libraryParser.cSymbols.functions) {
+                if (!cFunction.isExtern) {
+                    // we only care about external functions when generating stubs
+                    continue;
+                }
                 [mainSource appendFormat:@"%@ {\n", [cFunction generateStubMethod]];
                 [mainSource appendFormat:@"    if (verbose) puts(\"STUB: %@ called\");\n", cFunction.functionName];
                 [mainSource appendString:@"    return NULL;\n"];
-                [mainSource appendString:@")\n\n"];
+                [mainSource appendString:@"}\n\n"];
             }
         }
         
@@ -311,6 +320,9 @@ void* %s(void)\n\
     if ([_libraryParser.cSymbols.functions count] > 0) {
         [mainInclude appendString:@"\n\n"];
         for (DLCFunction* cFunction in _libraryParser.cSymbols.functions) {
+            if (!cFunction.isExtern) {
+                continue;
+            }
             [mainInclude appendFormat:@"%@;\n", [cFunction generateStubMethod]];
         }
     }
@@ -318,6 +330,9 @@ void* %s(void)\n\
     if ([_libraryParser.cSymbols.variables count] > 0) {
         [mainInclude appendString:@"\n\n"];
         for (DLCVariable* cVariable in _libraryParser.cSymbols.variables) {
+            if (!cVariable.isExtern) {
+                continue;
+            }
             NSString *cVariableString = [cVariable generateStubVariableHeader];
             if (cVariableString != nil) {
                 [mainInclude appendFormat:@"%@;\n", cVariableString];
