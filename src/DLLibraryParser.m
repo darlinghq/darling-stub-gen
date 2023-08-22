@@ -76,7 +76,7 @@ void createBlacklistedSymbols(void);
     
     if (symbolTable != nil) {
         NSRange localRange = symbolTable.localSymbols;
-        for (NSUInteger i = localRange.location; i < localRange.length; i++) {
+        for (NSUInteger i = 0; i < localRange.length; i++) {
             MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
             NSString *name = symbol.name.value.string;
 
@@ -109,9 +109,14 @@ void createBlacklistedSymbols(void);
         }
         
         NSRange externalSymbols = symbolTable.externalSymbols;
-        for (NSUInteger i = externalSymbols.location; i < externalSymbols.length; i++) {
-            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
+        for (NSUInteger i = 0; i < externalSymbols.length; i++) {
+            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: externalSymbols.location+i];
             NSString *name = symbol.name.value.string;
+            
+            DLObjectiveCSymbolsResults objCResult = [_objCSymbols addObjectiveCSymbol:name];
+            if (objCResult != OBJC_SYMBOLS_NOT_VALID) {
+                continue;
+            }
             
             DLCSymbolsResults cResult = [_cSymbols addCSymbol:symbol isExtern:YES];
             if (cResult != C_SYMBOLS_NOT_VALID) {
@@ -123,8 +128,8 @@ void createBlacklistedSymbols(void);
         }
         
         NSRange undefinedSymbols = symbolTable.undefinedSymbols;
-        for (NSUInteger i = undefinedSymbols.location; i < undefinedSymbols.length; i++) {
-            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: localRange.location+i];
+        for (NSUInteger i = 0; i < undefinedSymbols.length; i++) {
+            MKSectionSymbol *symbol = [symbolTable.symbols objectAtIndex: undefinedSymbols.location+i];
             NSString *name = symbol.name.value.string;
             
             [_undefinedSymbols addObject:name];
