@@ -44,16 +44,9 @@
 }
 
 -(NSString*)generateStubVariable {
-    NSMutableString *genVariable = [[NSMutableString alloc] initWithString:@"extern "];
-    if (_static) {
-        [genVariable appendString:@"static "];
-    }
+    NSMutableString *genVariable = [[NSMutableString alloc] initWithString:(_static ? @"static " : @"extern ")];
     
-    if (_constant) {
-        [genVariable appendString:@"const "];
-    }
-    
-    [genVariable appendFormat:@"void* %@", _name];
+    [genVariable appendFormat:@"void*%@ %@", (_constant ? @" const" : @""), _name];
     return genVariable;
 }
 
