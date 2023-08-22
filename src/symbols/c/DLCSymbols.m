@@ -36,17 +36,32 @@ bool isValidCSymbol(NSString *symbol);
     NSString *symbol_name = symbol.name.value.string;
     
     if (isValidCSymbol(symbol_name)) {
-        if ([segment_name  isEqualToString:@"__TEXT"]) {
+        if ([segment_name isEqualToString:@"__TEXT"]) {
             if ([section_name isEqualToString:@"__text"]) {
-                [_functions addObject:[DLCFunction parseMethod:symbol_name]];
+                [_functions addObject:[DLCFunction parseMethod:symbol_name isExtern:isExtern]];
                 return C_SYMBOLS_SUCCESS;
             } else if ([section_name isEqualToString:@"__const"]) {
-                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:YES isStatic:NO]];
+                // this section is for non-relocatable constant data
+                // (i.e. the value in the binary is the value at runtime)
+                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:YES isStatic:!isExtern]];
                 return C_SYMBOLS_SUCCESS;
             }
-        } else if ([segment_name isEqualToString:@"__TEXT"]) {
+        } else if ([segment_name isEqualToString:@"__DATA"]) {
             if ([section_name isEqualToString:@"__data"]) {
-                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:NO isStatic:NO]];
+                // this section is for generic writable data
+                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:NO isStatic:!isExtern]];
+                return C_SYMBOLS_SUCCESS;
+            } else if ([section_name isEqualToString:@"__const"]) {
+                // this section is for relocatable constant data
+                // (i.e. the value in the binary may be altered by the dynamic linker when loading it into memory)
+                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:YES isStatic:!isExtern]];
+                return C_SYMBOLS_SUCCESS;
+            }
+        } else if ([segment_name isEqualToString:@"__DATA_CONST"]) {
+            if ([section_name isEqualToString:@"__const"]) {
+                // this section is exactly the same as `__DATA,__const`, except that it's in a different
+                // segment so that the dynamic linker can mark it as read-only after relocating the data.
+                [_variables addObject:[DLCVariable parseVariable:symbol_name isConstant:YES isStatic:!isExtern]];
                 return C_SYMBOLS_SUCCESS;
             }
         }
